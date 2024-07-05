@@ -76,7 +76,7 @@ class WelcomeScreen extends StatelessWidget {
                           color: Color(0xff0047ff),
                         )
                       : const ReuseText(
-                          text: 'Sign up',
+                          text: 'Sign in',
                           size: 16,
                         ),
                   buttoncolor: Colors.white,
