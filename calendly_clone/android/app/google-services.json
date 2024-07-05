@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "987204575555",
+    "project_id": "calendly-clone-4cf2e",
+    "storage_bucket": "calendly-clone-4cf2e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:987204575555:android:ac30e8df825628d5124ff6",
+        "android_client_info": {
+          "package_name": "com.example.calendly_clone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAC4CTuWqE6w6tu_CoA-eI70u6LdqxpfEA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
