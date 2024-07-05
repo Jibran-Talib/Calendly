@@ -46,6 +46,7 @@ class WelcomeScreen extends StatelessWidget {
             InkWell(
               onTap: () {
                 controller.createLoading.value = true;
+                Get.to(SignUpScreen());
               },
               child: Obx(
                 () => ReuseButton(
@@ -67,11 +68,6 @@ class WelcomeScreen extends StatelessWidget {
             InkWell(
               onTap: () {
                 controller.signupLoading.value = true;
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SignUpScreen(),
-                    ));
               },
               child: Obx(
                 () => ReuseButton(
