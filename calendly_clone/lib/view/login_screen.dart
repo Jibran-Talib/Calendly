@@ -1,13 +1,12 @@
 import 'package:calendly_clone/utils/reuseable_button.dart';
 import 'package:calendly_clone/utils/reuseable_text.dart';
 import 'package:calendly_clone/utils/reuseable_textformField.dart';
-import 'package:calendly_clone/view/login_screen.dart';
+import 'package:calendly_clone/view/signup_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+class LoginScren extends StatelessWidget {
+  const LoginScren({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,7 @@ class SignUpScreen extends StatelessWidget {
                   image: const AssetImage('assets/images/longicon.png')),
             ),
             ReuseText(
-              text: 'Sign up with Calendly for free',
+              text: 'Log into your Calendly for free',
               color: Colors.black.withOpacity(0.7),
               fontWeight: FontWeight.bold,
               size: 16,
@@ -69,7 +68,7 @@ class SignUpScreen extends StatelessWidget {
                       const ReuseButton(
                           buttonheight: 39.29,
                           widget: ReuseText(
-                            text: 'Get Started',
+                            text: 'Continue',
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           )),
@@ -114,7 +113,7 @@ class SignUpScreen extends StatelessWidget {
                                 width: 10,
                               ),
                               const ReuseText(
-                                text: 'Sign up with Google',
+                                text: 'Log in with Google',
                                 color: Color(0xff757575),
                                 size: 10,
                               )
@@ -135,7 +134,7 @@ class SignUpScreen extends StatelessWidget {
                                 width: 10,
                               ),
                               const ReuseText(
-                                text: 'Sign up with Google',
+                                text: 'Log in with Microsoft ',
                                 color: Color(0xff757575),
                                 size: 10,
                               )
@@ -147,7 +146,7 @@ class SignUpScreen extends StatelessWidget {
                       Row(
                         children: [
                           const ReuseText(
-                            text: 'Already have an account?',
+                            text: 'Don’t have an account?',
                             color: Color(0xff757575),
                             size: 10,
                           ),
@@ -156,10 +155,10 @@ class SignUpScreen extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              Get.to(const LoginScren());
+                              Get.to(const SignUpScreen());
                             },
                             child: const ReuseText(
-                              text: 'Log in',
+                              text: 'Sign up',
                               size: 10,
                             ),
                           ),

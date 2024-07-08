@@ -1,5 +1,5 @@
 import 'package:calendly_clone/firebase_options.dart';
-import 'package:calendly_clone/view/welcomeScreen.dart';
+import 'package:calendly_clone/view/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xff0047ff)),
         useMaterial3: true,
       ),
-      home: const WelcomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }
