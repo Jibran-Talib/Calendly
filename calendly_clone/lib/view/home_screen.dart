@@ -1,5 +1,7 @@
+import 'package:calendly_clone/utils/reuseable_text.dart';
 import 'package:calendly_clone/utils/reuseable_textformField.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -40,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: const Color(0xfff5f5f5),
           onTap: (index) {
             setState(() {
               _seletedIndex = index;
@@ -52,14 +55,122 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: Icon(Icons.home_work_outlined),
             ),
             BottomNavigationBarItem(
-              label: 'Home2',
-              icon: Icon(Icons.home_work_outlined),
+              label: 'Scheduled events',
+              icon: ImageIcon(AssetImage('assets/images/calendar.png')),
             ),
             BottomNavigationBarItem(
-              label: 'Home3',
-              icon: Icon(Icons.home_work_outlined),
+              label: 'Notification',
+              icon: ImageIcon(AssetImage('assets/images/bell.png')),
             ),
           ]),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+        backgroundColor: const Color(0xff0047ff),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 32,
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 12, left: 10, right: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Row(
+              children: [
+                SizedBox(
+                  width: 10,
+                ),
+                ReuseText(
+                  text: 'YOUR EVENT TYPES',
+                  color: Color(0xff757575),
+                  size: 13,
+                ),
+              ],
+            ),
+            Expanded(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: 15,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 7),
+                    child: Card(
+                      shadowColor: Colors.grey,
+                      elevation: 1,
+                      surfaceTintColor: Colors.white,
+                      color: Colors.white,
+                      child: Container(
+                        width: 331,
+                        height: 59,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: const Color(0xffd9d9d9))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: 11,
+                              height: 59,
+                              // color: Color(0xff990193),
+                              decoration: const BoxDecoration(
+                                  color: Color(0xff990193),
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      bottomLeft: Radius.circular(10))),
+                            ),
+                            Row(
+                              children: [
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                const Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 12,
+                                    ),
+                                    ReuseText(
+                                      text: '30 Minute Meeting',
+                                      color: Colors.black,
+                                      size: 11,
+                                    ),
+                                    SizedBox(
+                                      height: 2,
+                                    ),
+                                    ReuseText(
+                                      text: 'One-on-one, 30 mins',
+                                      color: Color(0xff757575),
+                                      size: 9,
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  width: Get.width * 0.47,
+                                ),
+                                const CircleAvatar(
+                                  radius: 12,
+                                  backgroundColor: Color(0xffD9D9D9),
+                                  child: ReuseText(
+                                    text: 'JT',
+                                    color: Color(0xff757575),
+                                    size: 11,
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
