@@ -1,6 +1,7 @@
 import 'package:calendly_clone/utils/reuseable_button.dart';
 import 'package:calendly_clone/utils/reuseable_text.dart';
 import 'package:calendly_clone/utils/reuseable_textformField.dart';
+import 'package:calendly_clone/view/home_screen.dart';
 import 'package:calendly_clone/view/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -65,13 +66,18 @@ class LoginScren extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      const ReuseButton(
-                          buttonheight: 39.29,
-                          widget: ReuseText(
-                            text: 'Continue',
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          )),
+                      InkWell(
+                        onTap: () {
+                          Get.to(const HomeScreen());
+                        },
+                        child: const ReuseButton(
+                            buttonheight: 39.29,
+                            widget: ReuseText(
+                              text: 'Continue',
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ),
                       const SizedBox(
                         height: 30,
                       ),

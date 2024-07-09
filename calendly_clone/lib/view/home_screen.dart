@@ -16,6 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         // elevation: 2,
 
         backgroundColor: const Color(0xfff5f5f5),
@@ -52,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
           items: const [
             BottomNavigationBarItem(
               label: 'Home',
-              icon: Icon(Icons.home_work_outlined),
+              icon: ImageIcon(AssetImage('assets/images/homeicon.png')),
             ),
             BottomNavigationBarItem(
               label: 'Scheduled events',
@@ -97,70 +98,93 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 7),
-                    child: Card(
-                      shadowColor: Colors.grey,
-                      elevation: 1,
-                      surfaceTintColor: Colors.white,
-                      color: Colors.white,
-                      child: Container(
-                        width: 331,
-                        height: 59,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: const Color(0xffd9d9d9))),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: 11,
-                              height: 59,
-                              // color: Color(0xff990193),
-                              decoration: const BoxDecoration(
-                                  color: Color(0xff990193),
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      bottomLeft: Radius.circular(10))),
-                            ),
-                            Row(
-                              children: [
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                const Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 12,
-                                    ),
-                                    ReuseText(
-                                      text: '30 Minute Meeting',
-                                      color: Colors.black,
+                    child: InkWell(
+                      onTap: () {
+                        Get.bottomSheet(Container(
+                          height: 333,
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                              )),
+                          child: const Column(
+                            children: [
+                              ListTile(
+                                title: Text('Jibra'),
+                                subtitle: Text('Subtext'),
+                                trailing: CircleAvatar(),
+                              ),
+                            ],
+                          ),
+                        ));
+                      },
+                      child: Card(
+                        shadowColor: Colors.grey,
+                        elevation: 1,
+                        surfaceTintColor: Colors.white,
+                        color: Colors.white,
+                        child: Container(
+                          width: 331,
+                          height: 59,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border:
+                                  Border.all(color: const Color(0xffd9d9d9))),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 11,
+                                height: 59,
+                                // color: Color(0xff990193),
+                                decoration: const BoxDecoration(
+                                    color: Color(0xff990193),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        bottomLeft: Radius.circular(10))),
+                              ),
+                              Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  const Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 12,
+                                      ),
+                                      ReuseText(
+                                        text: '30 Minute Meeting',
+                                        color: Colors.black,
+                                        size: 11,
+                                      ),
+                                      SizedBox(
+                                        height: 2,
+                                      ),
+                                      ReuseText(
+                                        text: 'One-on-one, 30 mins',
+                                        color: Color(0xff757575),
+                                        size: 9,
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: Get.width * 0.47,
+                                  ),
+                                  const CircleAvatar(
+                                    radius: 12,
+                                    backgroundColor: Color(0xffD9D9D9),
+                                    child: ReuseText(
+                                      text: 'JT',
+                                      color: Color(0xff757575),
                                       size: 11,
                                     ),
-                                    SizedBox(
-                                      height: 2,
-                                    ),
-                                    ReuseText(
-                                      text: 'One-on-one, 30 mins',
-                                      color: Color(0xff757575),
-                                      size: 9,
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: Get.width * 0.47,
-                                ),
-                                const CircleAvatar(
-                                  radius: 12,
-                                  backgroundColor: Color(0xffD9D9D9),
-                                  child: ReuseText(
-                                    text: 'JT',
-                                    color: Color(0xff757575),
-                                    size: 11,
                                   ),
-                                ),
-                              ],
-                            )
-                          ],
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
