@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReuseButton extends StatelessWidget {
   final Color buttoncolor;
@@ -18,7 +19,7 @@ class ReuseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: buttonheight,
+      height: buttonheight.h,
       width: double.infinity,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(50),

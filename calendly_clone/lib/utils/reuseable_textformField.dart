@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReuseTextFormField extends StatelessWidget {
   final Icon? prefixIcon;
@@ -21,27 +22,27 @@ class ReuseTextFormField extends StatelessWidget {
     return TextFormField(
       cursorColor: Colors.black.withOpacity(0.7),
       textAlign: TextAlign.start,
-      cursorHeight: 12,
-      style: const TextStyle(
-        fontSize: 12,
+      // cursorHeight: 16,
+      style: TextStyle(
+        fontSize: 12.sp,
       ),
       decoration: InputDecoration(
         fillColor: Colors.white,
         filled: true,
         prefixIcon: prefixIcon,
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 10,
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 10.w,
         ),
         hintStyle: const TextStyle(
             color: Color(0xff757575), fontWeight: FontWeight.normal),
         hintText: hintText,
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: focusedBorderColor),
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(borderRadius.r),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: enabledBorderColor),
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(borderRadius.r),
         ),
       ),
       validator: (value) {

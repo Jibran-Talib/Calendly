@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReuseText extends StatelessWidget {
   final String text;
@@ -20,7 +21,7 @@ class ReuseText extends StatelessWidget {
       style: TextStyle(
         fontFamily: 'Inter',
         fontWeight: fontWeight,
-        fontSize: size,
+        fontSize: size.sp,
         color: color,
       ),
     );

@@ -1,6 +1,10 @@
+import 'package:calendly_clone/utils/reuseable_listtile.dart';
+import 'package:calendly_clone/utils/reuseable_listtile2.dart';
 import 'package:calendly_clone/utils/reuseable_text.dart';
 import 'package:calendly_clone/utils/reuseable_textformField.dart';
+import 'package:calendly_clone/view/setting_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,185 +18,302 @@ class _HomeScreenState extends State<HomeScreen> {
   int _seletedIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        // elevation: 2,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 56.h,
+          automaticallyImplyLeading: false,
+          // elevation: 2,
 
-        backgroundColor: const Color(0xfff5f5f5),
-        // toolbarHeight: 56,
-        title: const SizedBox(
-          height: 37,
-          child: ReuseTextFormField(
-            prefixIcon: Icon(
-              Icons.search,
-              color: Color(0xff757575),
-            ),
-            hintText: 'Search event types...',
-            borderRadius: 30,
-            enabledBorderColor: Color(0xffd9d9d9),
-            focusedBorderColor: Color(0xffd9d9d9),
-          ),
-        ),
-        actions: const [
-          CircleAvatar(
-            radius: 13,
-            backgroundColor: Color(0xffd9d9d9),
-            child: Text("J"),
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
           backgroundColor: const Color(0xfff5f5f5),
-          onTap: (index) {
-            setState(() {
-              _seletedIndex = index;
-            });
-          },
-          currentIndex: _seletedIndex,
-          items: const [
-            BottomNavigationBarItem(
-              label: 'Home',
-              icon: ImageIcon(AssetImage('assets/images/homeicon.png')),
+          // toolbarHeight: 56,
+          title: SizedBox(
+            height: 37.h,
+            child: const ReuseTextFormField(
+              prefixIcon: Icon(
+                Icons.search,
+                color: Color(0xff757575),
+              ),
+              hintText: 'Search event types...',
+              borderRadius: 30,
+              enabledBorderColor: Color(0xffd9d9d9),
+              focusedBorderColor: Color(0xffd9d9d9),
             ),
-            BottomNavigationBarItem(
-              label: 'Scheduled events',
-              icon: ImageIcon(AssetImage('assets/images/calendar.png')),
+          ),
+          actions: [
+            InkWell(
+              onTap: () {
+                Get.to(const SettingScreen());
+              },
+              child: CircleAvatar(
+                radius: 13.r,
+                backgroundColor: const Color(0xffd9d9d9),
+                child: const Text("J"),
+              ),
             ),
-            BottomNavigationBarItem(
-              label: 'Notification',
-              icon: ImageIcon(AssetImage('assets/images/bell.png')),
-            ),
-          ]),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        backgroundColor: const Color(0xff0047ff),
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-          size: 32,
+            SizedBox(
+              width: 12.w,
+            )
+          ],
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 12, left: 10, right: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Row(
-              children: [
-                SizedBox(
-                  width: 10,
+        bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: const Color(0xfff5f5f5),
+            onTap: (index) {
+              setState(() {
+                _seletedIndex = index;
+              });
+            },
+            currentIndex: _seletedIndex,
+            items: [
+              BottomNavigationBarItem(
+                label: 'Home',
+                icon: _seletedIndex == 0
+                    ? Image(
+                        height: 17.h,
+                        image: const AssetImage('assets/images/homeicon.png'))
+                    : const ImageIcon(
+                        AssetImage('assets/images/homeicon.png'),
+                      ),
+              ),
+              const BottomNavigationBarItem(
+                label: 'Scheduled events',
+                icon: ImageIcon(AssetImage('assets/images/calendar.png')),
+              ),
+              const BottomNavigationBarItem(
+                label: 'Notification',
+                icon: ImageIcon(AssetImage('assets/images/bell.png')),
+              ),
+            ]),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Get.bottomSheet(Container(
+              height: 286.h,
+              width: double.infinity,
+              color: Colors.white,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        const Spacer(),
+                        InkWell(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: ImageIcon(
+                                AssetImage('assets/images/cross.png')))
+                      ],
+                    ),
+                    SizedBox(
+                      height: 13.h,
+                    ),
+                    const Reuse2Listtile(
+                        iconPath: 'assets/images/pageicon.png',
+                        titleText: 'One-on-one event type',
+                        subtext:
+                            'Create a new template for your regularly scheduled events.'),
+                    const Reuse2Listtile(
+                        iconPath: 'assets/images/ticketicon.png',
+                        titleText: 'One-on-one event type',
+                        subtext:
+                            'Invite someone to pick a time to meet with you.'),
+                    const Reuse2Listtile(
+                        iconPath: 'assets/images/voteicon.png',
+                        titleText: 'Meeting poll',
+                        subtext:
+                            'Create a poll for invites to vote on the meeting times you offer.'),
+                  ],
                 ),
-                ReuseText(
-                  text: 'YOUR EVENT TYPES',
-                  color: Color(0xff757575),
-                  size: 13,
-                ),
-              ],
-            ),
-            Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: 15,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 7),
-                    child: InkWell(
-                      onTap: () {
-                        Get.bottomSheet(Container(
-                          height: 333,
-                          decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20),
-                              )),
-                          child: const Column(
-                            children: [
-                              ListTile(
-                                title: Text('Jibra'),
-                                subtitle: Text('Subtext'),
-                                trailing: CircleAvatar(),
-                              ),
-                            ],
-                          ),
-                        ));
-                      },
-                      child: Card(
-                        shadowColor: Colors.grey,
-                        elevation: 1,
-                        surfaceTintColor: Colors.white,
-                        color: Colors.white,
-                        child: Container(
-                          width: 331,
-                          height: 59,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border:
-                                  Border.all(color: const Color(0xffd9d9d9))),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 11,
-                                height: 59,
-                                // color: Color(0xff990193),
-                                decoration: const BoxDecoration(
-                                    color: Color(0xff990193),
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(10),
-                                        bottomLeft: Radius.circular(10))),
-                              ),
-                              Row(
+              ),
+            ));
+          },
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+          backgroundColor: const Color(0xff0047ff),
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+            size: 32.h,
+          ),
+        ),
+        body: Padding(
+          padding: EdgeInsets.only(top: 12.w, left: 10.h, right: 10.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  const ReuseText(
+                    text: 'YOUR EVENT TYPES',
+                    color: Color(0xff757575),
+                    size: 13,
+                  ),
+                ],
+              ),
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: 15,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 7),
+                      child: InkWell(
+                        onTap: () {
+                          Get.bottomSheet(Container(
+                            height: 333.h,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20.r),
+                                  topRight: Radius.circular(20.r),
+                                )),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 19.w, vertical: 8.h),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  const Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 12,
-                                      ),
-                                      ReuseText(
-                                        text: '30 Minute Meeting',
-                                        color: Colors.black,
-                                        size: 11,
-                                      ),
-                                      SizedBox(
-                                        height: 2,
-                                      ),
-                                      ReuseText(
-                                        text: 'One-on-one, 30 mins',
-                                        color: Color(0xff757575),
-                                        size: 9,
-                                      ),
-                                    ],
+                                  Center(
+                                    child: Container(
+                                      width: 54.w,
+                                      height: 11.h,
+                                      decoration: BoxDecoration(
+                                          color: const Color(0xffd9d9d9),
+                                          borderRadius:
+                                              BorderRadius.circular(10.r)),
+                                    ),
                                   ),
                                   SizedBox(
-                                    width: Get.width * 0.47,
+                                    height: 12.62.h,
                                   ),
-                                  const CircleAvatar(
-                                    radius: 12,
-                                    backgroundColor: Color(0xffD9D9D9),
-                                    child: ReuseText(
+                                  const ReuseText(
+                                    text: 'Jibran',
+                                    size: 13,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  SizedBox(height: 6.7.h),
+                                  const ReuseText(
+                                    text: 'One-on-one, 30 mins, Zoom',
+                                    size: 13,
+                                    color: Color(0xff757575),
+                                  ),
+                                  SizedBox(height: 21.h),
+                                  CircleAvatar(
+                                    backgroundColor: const Color(0xffD9D9D9),
+                                    radius: 12.h,
+                                    child: const ReuseText(
                                       text: 'JT',
                                       color: Color(0xff757575),
                                       size: 11,
                                     ),
                                   ),
+                                  SizedBox(
+                                    height: 15.h,
+                                  ),
+                                  const ReuseListTile(
+                                      text: 'Copy link',
+                                      iconpath: 'assets/images/copyicon.png'),
+                                  const ReuseListTile(
+                                      text: 'Copy single-use link',
+                                      iconpath: 'assets/images/linkicon.png'),
+                                  const ReuseListTile(
+                                      text: 'View event type details',
+                                      iconpath: 'assets/images/eyeicon.png'),
+                                  const ReuseListTile(
+                                      text: 'View event type details',
+                                      iconpath:
+                                          'assets/images/settingsicon.png'),
+                                  const ReuseListTile(
+                                      text: 'More share options',
+                                      iconpath: 'assets/images/share2icon.png'),
                                 ],
-                              )
-                            ],
+                              ),
+                            ),
+                          ));
+                        },
+                        child: Card(
+                          shadowColor: Colors.grey,
+                          elevation: 1,
+                          surfaceTintColor: Colors.white,
+                          color: Colors.white,
+                          child: Container(
+                            width: 331.w,
+                            height: 59.h,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.r),
+                                border:
+                                    Border.all(color: const Color(0xffd9d9d9))),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 11.w,
+                                  height: 59.h,
+                                  // color: Color(0xff990193),
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xff990193),
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(10.r),
+                                          bottomLeft: Radius.circular(10.r))),
+                                ),
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 10.w,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        // SizedBox(
+                                        //   height: 12.h,
+                                        // ),
+                                        const ReuseText(
+                                          text: '30 Minute Meeting',
+                                          color: Colors.black,
+                                          size: 11,
+                                        ),
+                                        SizedBox(
+                                          height: 3.h,
+                                        ),
+                                        const ReuseText(
+                                          text: 'One-on-one, 30 mins',
+                                          color: Color(0xff757575),
+                                          size: 9,
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      width: Get.width * 0.47,
+                                    ),
+                                    CircleAvatar(
+                                      radius: 12.r,
+                                      backgroundColor: Color(0xffD9D9D9),
+                                      child: const ReuseText(
+                                        text: 'JT',
+                                        color: Color(0xff757575),
+                                        size: 11,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
-              ),
-            )
-          ],
+                    );
+                  },
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
