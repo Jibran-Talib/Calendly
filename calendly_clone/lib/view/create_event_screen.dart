@@ -32,7 +32,28 @@ class CreateEventScreen extends StatelessWidget {
                 size: 24,
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
-              )
+              ),
+              SizedBox(
+                height: 25.h,
+              ),
+              const DefaultTabController(
+                  length: 2,
+                  child: Column(
+                    children: [
+                      TabBar(indicatorColor: Colors.blue, tabs: [
+                        ReuseText(
+                          text: 'Edit',
+                          size: 13,
+                          color: Color(0xff757575),
+                        ),
+                        ReuseText(
+                          text: 'Preview',
+                          size: 13,
+                          color: Color(0xff757575),
+                        ),
+                      ])
+                    ],
+                  ))
             ],
           ),
         ),
