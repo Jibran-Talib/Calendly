@@ -1,6 +1,8 @@
 import 'package:calendly_clone/utils/reuseable_row.dart';
 import 'package:calendly_clone/utils/reuseable_text.dart';
+import 'package:calendly_clone/view/default_screen.dart';
 import 'package:calendly_clone/view/lab_screen.dart';
+import 'package:calendly_clone/view/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -88,8 +90,17 @@ class SettingScreen extends StatelessWidget {
               text: 'Availability',
               onTap: () {},
             ),
-            ReuseableRow(text: 'Default message', onTap: () {}),
-            const ReuseableRow(text: 'Notifications'),
+            ReuseableRow(
+                text: 'Default message',
+                onTap: () {
+                  Get.to(() => const DefaultScreen());
+                }),
+            ReuseableRow(
+              text: 'Notifications',
+              onTap: () {
+                Get.to(() => const NotificationScreen());
+              },
+            ),
             ReuseableRow(
               text: 'Labs',
               onTap: () {

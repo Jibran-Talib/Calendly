@@ -5,7 +5,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ReuseableRow extends StatelessWidget {
   final String text;
   final VoidCallback? onTap;
-  const ReuseableRow({super.key, required this.text, this.onTap});
+  final Widget? button;
+  final double fontSize;
+
+  const ReuseableRow({
+    super.key,
+    required this.text,
+    this.onTap,
+    this.button,
+    this.fontSize = 10,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +26,27 @@ class ReuseableRow extends StatelessWidget {
           height: 1.h,
           color: const Color(0xff757575),
         ),
-        InkWell(
-          onTap: onTap,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 12.h),
-            child: ReuseText(
-              text: text,
-              color: const Color(0xff757575),
-              size: 10,
+        Row(
+          children: [
+            InkWell(
+              onTap: onTap,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 12.h),
+                child: ReuseText(
+                  text: text,
+                  color: const Color(0xff757575),
+                  size: fontSize.sp,
+                ),
+              ),
             ),
-          ),
+            const Spacer(),
+            SizedBox(
+              child: button,
+            ),
+            SizedBox(
+              width: 15.w,
+            ),
+          ],
         ),
       ],
     );

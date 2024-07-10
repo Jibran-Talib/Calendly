@@ -2,6 +2,7 @@ import 'package:calendly_clone/utils/reuseable_listtile.dart';
 import 'package:calendly_clone/utils/reuseable_listtile2.dart';
 import 'package:calendly_clone/utils/reuseable_text.dart';
 import 'package:calendly_clone/utils/reuseable_textformField.dart';
+import 'package:calendly_clone/view/create_event_screen.dart';
 import 'package:calendly_clone/view/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -111,28 +112,39 @@ class _HomeScreenState extends State<HomeScreen> {
                             onTap: () {
                               Get.back();
                             },
-                            child: ImageIcon(
+                            child: const ImageIcon(
                                 AssetImage('assets/images/cross.png')))
                       ],
                     ),
                     SizedBox(
                       height: 13.h,
                     ),
-                    const Reuse2Listtile(
-                        iconPath: 'assets/images/pageicon.png',
-                        titleText: 'One-on-one event type',
-                        subtext:
-                            'Create a new template for your regularly scheduled events.'),
-                    const Reuse2Listtile(
-                        iconPath: 'assets/images/ticketicon.png',
-                        titleText: 'One-on-one event type',
-                        subtext:
-                            'Invite someone to pick a time to meet with you.'),
-                    const Reuse2Listtile(
-                        iconPath: 'assets/images/voteicon.png',
-                        titleText: 'Meeting poll',
-                        subtext:
-                            'Create a poll for invites to vote on the meeting times you offer.'),
+                    InkWell(
+                      onTap: () {
+                        Get.to(() => const CreateEventScreen());
+                      },
+                      child: const Reuse2Listtile(
+                          iconPath: 'assets/images/pageicon.png',
+                          titleText: 'One-on-one event type',
+                          subtext:
+                              'Create a new template for your regularly scheduled events.'),
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: const Reuse2Listtile(
+                          iconPath: 'assets/images/ticketicon.png',
+                          titleText: 'One-on-one event type',
+                          subtext:
+                              'Invite someone to pick a time to meet with you.'),
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: const Reuse2Listtile(
+                          iconPath: 'assets/images/voteicon.png',
+                          titleText: 'Meeting poll',
+                          subtext:
+                              'Create a poll for invites to vote on the meeting times you offer.'),
+                    ),
                   ],
                 ),
               ),
