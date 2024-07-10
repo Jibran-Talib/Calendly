@@ -27,6 +27,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
           backgroundColor: const Color(0xfff5f5f5),
           // toolbarHeight: 56,
+          bottom: PreferredSize(
+              preferredSize: const Size(double.infinity, 0),
+              child: Material(
+                elevation: 2,
+                child: Container(
+                  width: double.infinity,
+                  height: 1,
+                  color: Colors.white,
+                ),
+              )),
           title: SizedBox(
             height: 37.h,
             child: const ReuseTextFormField(
