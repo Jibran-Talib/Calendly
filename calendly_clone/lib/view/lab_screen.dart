@@ -1,20 +1,16 @@
+import 'package:calendly_clone/controller/get_controller.dart';
 import 'package:calendly_clone/utils/reuseable_row.dart';
 import 'package:calendly_clone/utils/reuseable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class LabScreen extends StatefulWidget {
+class LabScreen extends StatelessWidget {
   const LabScreen({super.key});
 
   @override
-  State<LabScreen> createState() => _LabScreenState();
-}
-
-class _LabScreenState extends State<LabScreen> {
-  bool switchButtonValue = false;
-  @override
   Widget build(BuildContext context) {
+    Controller controller = Get.put(Controller());
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -58,13 +54,19 @@ class _LabScreenState extends State<LabScreen> {
             ReuseableRow(
               text: 'Dark mode',
               fontSize: 13,
-              button: Switch(
-                activeTrackColor: const Color(0xff0047ff),
-                value: switchButtonValue,
-                onChanged: (value) {
-                  switchButtonValue = value;
-                  setState(() {});
-                },
+              button: Obx(
+                () => Switch(
+                  activeTrackColor: const Color(0xff0047ff),
+                  value: controller.dartModeSwitch.value,
+                  onChanged: (value) {
+                    controller.dartModeSwitch.value = value;
+                    if (controller.dartModeSwitch.value == false) {
+                      Get.changeTheme(ThemeData.light());
+                    } else {
+                      Get.changeTheme(ThemeData.dark());
+                    }
+                  },
+                ),
               ),
             ),
             Container(

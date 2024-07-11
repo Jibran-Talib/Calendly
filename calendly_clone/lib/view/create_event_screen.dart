@@ -1,5 +1,7 @@
 import 'package:calendly_clone/utils/reuseable_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CreateEventScreen extends StatelessWidget {
@@ -51,7 +53,7 @@ class CreateEventScreen extends StatelessWidget {
                           size: 13,
                           color: Color(0xff757575),
                         ),
-                      ])
+                      ]),
                     ],
                   ))
             ],
