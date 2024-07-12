@@ -1,7 +1,10 @@
+import 'package:calendly_clone/controller/get_controller.dart';
 import 'package:calendly_clone/utils/reuseable_text.dart';
+import 'package:calendly_clone/utils/reuseable_textformField.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +13,8 @@ class CreateEventScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('Rebuil Jibran Code');
+    Controller controller = Get.put(Controller());
     return SafeArea(
       child: DefaultTabController(
         length: 2,
@@ -63,8 +68,9 @@ class CreateEventScreen extends StatelessWidget {
                     ),
                     TabBar(
                         dividerHeight: 0,
-                        splashBorderRadius:
-                            const BorderRadius.all(Radius.circular(20)),
+
+                        // splashBorderRadius:
+                        //     const BorderRadius.all(Radius.circular(20)),
                         overlayColor:
                             const MaterialStatePropertyAll(Color(0xffa2cdff)),
                         // labelPadding: EdgeInsets.only(left: 24.w, bottom: 14),
@@ -95,15 +101,144 @@ class CreateEventScreen extends StatelessWidget {
               ),
               Expanded(
                 child: TabBarView(children: [
-                  Expanded(
-                    child: Container(
-                      color: Colors.red,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 29.h,
+                        ),
+                        const Row(
+                          children: [
+                            ReuseText(
+                              text: 'Event name *  ',
+                              size: 11,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            Icon(
+                              Icons.info_outline,
+                              size: 16.66,
+                              color: Color(0xff757575),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 7.h,
+                        ),
+                        SizedBox(
+                          height: 30.h,
+                          child: ReuseTextFormField(
+                            hintText: 'Name your event',
+                            borderRadius: 5,
+                            enabledBorderColor: const Color(0xff757575),
+                            prefixIcon: SizedBox(
+                              width: 62.w,
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 11.w,
+                                  ),
+                                  DropdownButtonHideUnderline(
+                                    child: Obx(
+                                      () => DropdownButton(
+                                        iconEnabledColor:
+                                            const Color(0xff356eff),
+                                        value: controller
+                                            .dropDownButtonValue.value,
+                                        icon: const Icon(
+                                            Icons.keyboard_arrow_down_outlined),
+                                        items: controller.dropDownButtonColors
+                                            .map<DropdownMenuItem<Color>>((e) {
+                                          return DropdownMenuItem<Color>(
+                                            value: e,
+                                            child: Center(
+                                              child: CircleAvatar(
+                                                radius: 7.5.r,
+                                                backgroundColor: e,
+                                              ),
+                                            ),
+                                          );
+                                        }).toList(),
+                                        onChanged: (value) {
+                                          controller.dropDownButtonValue.value =
+                                              value!;
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  const VerticalDivider()
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 24.h,
+                        ),
+                        const Row(
+                          children: [
+                            ReuseText(
+                              text: 'Duration *  ',
+                              size: 11,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            Icon(
+                              Icons.info_outline,
+                              size: 16.66,
+                              color: Color(0xff757575),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 6.h,
+                        ),
+                        Container(
+                          height: 30.h,
+                          width: 138.w,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.r),
+                              border: Border.all(color: Colors.black)),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 11.w),
+                            child: DropdownButtonHideUnderline(
+                              child: Obx(
+                                () => Expanded(
+                                  child: DropdownButton(
+                                    isExpanded: true,
+                                    iconEnabledColor: const Color(0xff356eff),
+                                    value: controller
+                                        .dropDownButtonMintsValue.value
+                                        .toString(),
+                                    icon: const Icon(
+                                        Icons.keyboard_arrow_down_outlined),
+                                    items: controller.dropDownButtonMints
+                                        .map<DropdownMenuItem<String>>((e) {
+                                      return DropdownMenuItem<String>(
+                                          value: e.toString(),
+                                          child: ReuseText(
+                                            text: e.toString(),
+                                            size: 10,
+                                            color: Colors.black,
+                                          ));
+                                    }).toList(),
+                                    onChanged: (value) {
+                                      controller.dropDownButtonMintsValue
+                                          .value = value.toString();
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Expanded(
-                    child: Container(
-                      color: Colors.blue,
-                    ),
+                  Container(
+                    color: Colors.blue,
                   ),
                 ]),
               )

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReuseTextFormField extends StatelessWidget {
-  final Icon? prefixIcon;
+  final Widget? prefixIcon;
   final String? hintText;
   final Color focusedBorderColor;
   final Color enabledBorderColor;
