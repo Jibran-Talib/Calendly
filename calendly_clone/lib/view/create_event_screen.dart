@@ -1,6 +1,7 @@
 import 'package:calendly_clone/controller/get_controller.dart';
 import 'package:calendly_clone/utils/reuseable_text.dart';
 import 'package:calendly_clone/utils/reuseable_textformField.dart';
+import 'package:calendly_clone/utils/reuseable_zoom_container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -200,7 +201,7 @@ class CreateEventScreen extends StatelessWidget {
                           width: 138.w,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5.r),
-                              border: Border.all(color: Colors.black)),
+                              border: Border.all(color: Color(0xff757575))),
                           child: Padding(
                             padding: EdgeInsets.symmetric(horizontal: 11.w),
                             child: DropdownButtonHideUnderline(
@@ -233,6 +234,132 @@ class CreateEventScreen extends StatelessWidget {
                               ),
                             ),
                           ),
+                        ),
+                        Obx(
+                          () => controller.dropDownButtonMintsValue.value ==
+                                  'Custum'
+                              ? Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 5.h,
+                                    ),
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                            height: 30.h,
+                                            width: 50.w,
+                                            child: ReuseTextFormField(
+                                              borderRadius: 5.r,
+                                              enabledBorderColor:
+                                                  const Color(0xff757575),
+                                              keyboardType:
+                                                  TextInputType.number,
+                                            )),
+                                        SizedBox(
+                                          width: 5.w,
+                                        ),
+                                        Container(
+                                          width: 83.w,
+                                          height: 30.h,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.r),
+                                              border: Border.all(
+                                                  color:
+                                                      const Color(0xff757575))),
+                                          child: Expanded(
+                                            child: DropdownButtonHideUnderline(
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 11.w),
+                                                child: DropdownButton(
+                                                    iconEnabledColor:
+                                                        const Color(0xff356eff),
+                                                    icon: const Icon(Icons
+                                                        .keyboard_arrow_down_outlined),
+                                                    value: controller
+                                                        .dropDownButtonMintsHourValue
+                                                        .value
+                                                        .toString(),
+                                                    items: controller
+                                                        .dropDownButtonMintsHour
+                                                        .map<
+                                                            DropdownMenuItem<
+                                                                String>>((e) {
+                                                      return DropdownMenuItem<
+                                                              String>(
+                                                          value: e.toString(),
+                                                          child: ReuseText(
+                                                            text: e.toString(),
+                                                            size: 10,
+                                                            color: Colors.black,
+                                                          ));
+                                                    }).toList(),
+                                                    onChanged: (value) {
+                                                      controller
+                                                          .dropDownButtonMintsHourValue
+                                                          .value = value.toString();
+                                                    }),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              : const SizedBox(),
+                        ),
+                        SizedBox(
+                          height: 24.h,
+                        ),
+                        const Row(
+                          children: [
+                            ReuseText(
+                              text: 'Location *  ',
+                              size: 11,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            Icon(
+                              Icons.info_outline,
+                              size: 16.66,
+                              color: Color(0xff757575),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        const Row(
+                          children: [
+                            ReuseZoomCointainer(
+                              imagePath: 'assets/images/zoomicon.png',
+                              text: 'Zoom',
+                            ),
+                            Spacer(),
+                            ReuseZoomCointainer(
+                              imagePath: 'assets/images/callicon.png',
+                              text: 'Phone call',
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        const Row(
+                          children: [
+                            ReuseZoomCointainer(
+                              imagePath: 'assets/images/pinicon.png',
+                              text: 'In-person meeting',
+                            ),
+                            Spacer(),
+                            ReuseZoomCointainer(
+                              imagePath: 'assets/images/downarrowicon.png',
+                              text: 'In-person meeting',
+                              borderColor: Colors.transparent,
+                            ),
+                          ],
                         ),
                       ],
                     ),

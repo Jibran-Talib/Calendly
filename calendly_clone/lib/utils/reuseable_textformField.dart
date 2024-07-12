@@ -6,6 +6,7 @@ class ReuseTextFormField extends StatelessWidget {
   final String? hintText;
   final Color focusedBorderColor;
   final Color enabledBorderColor;
+  final TextInputType? keyboardType;
 
   final double borderRadius;
 
@@ -15,13 +16,15 @@ class ReuseTextFormField extends StatelessWidget {
       this.hintText,
       this.focusedBorderColor = const Color(0xff0047ff),
       this.enabledBorderColor = const Color(0xff0047ff),
-      this.borderRadius = 8});
+      this.borderRadius = 8,
+      this.keyboardType});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       cursorColor: Colors.black.withOpacity(0.7),
       textAlign: TextAlign.start,
+      keyboardType: keyboardType,
       // cursorHeight: 16,
       style: TextStyle(
         fontSize: 12.sp,

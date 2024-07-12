@@ -25,4 +25,10 @@ class Controller extends GetxController {
     'Custum',
   ].obs;
   RxString dropDownButtonMintsValue = '30 min'.obs;
+
+  List<String> dropDownButtonMintsHour = [
+    'min',
+    'hrs',
+  ].obs;
+  RxString dropDownButtonMintsHourValue = 'min'.obs;
 }
