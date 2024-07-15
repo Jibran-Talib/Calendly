@@ -103,8 +103,7 @@ class CreateEventScreen extends StatelessWidget {
               ),
               Expanded(
                 child: TabBarView(children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  ListView(
                     children: [
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -380,6 +379,14 @@ class CreateEventScreen extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
+                      Obx(
+                        () => controller.dropDownButtonMintsHourValue.value ==
+                                'Custum'
+                            ? const SizedBox()
+                            : SizedBox(
+                                height: 20.h,
+                              ),
+                      ),
                       const Divider(),
                       SizedBox(
                         height: 5.h,
@@ -411,9 +418,6 @@ class CreateEventScreen extends StatelessWidget {
                                 )),
                           ),
                         ],
-                      ),
-                      SizedBox(
-                        height: 10.h,
                       ),
                     ],
                   ),
