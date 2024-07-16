@@ -15,7 +15,7 @@ class ReuseZoomCointainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 70.h,
+      height: 65.h,
       width: 150.72.w,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.r),

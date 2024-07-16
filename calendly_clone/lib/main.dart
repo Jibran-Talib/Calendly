@@ -1,6 +1,5 @@
 import 'package:calendly_clone/firebase_options.dart';
 import 'package:calendly_clone/view/create_event_screen.dart';
-import 'package:calendly_clone/view/welcomeScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

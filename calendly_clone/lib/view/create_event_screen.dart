@@ -380,17 +380,17 @@ class CreateEventScreen extends StatelessWidget {
                       ),
                       const Spacer(),
                       Obx(
-                        () => controller.dropDownButtonMintsHourValue.value ==
+                        () => controller.dropDownButtonMintsValue.value ==
                                 'Custum'
                             ? const SizedBox()
                             : SizedBox(
-                                height: 20.h,
+                                height: 41.h,
                               ),
                       ),
+                      // SizedBox(
+                      //   height: 17.h,
+                      // ),
                       const Divider(),
-                      SizedBox(
-                        height: 5.h,
-                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
