@@ -121,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     InkWell(
                       onTap: () {
-                        Get.to(() => const CreateEventScreen());
+                        Get.to(() => CreateEventScreen());
                       },
                       child: const Reuse2Listtile(
                           iconPath: 'assets/images/pageicon.png',

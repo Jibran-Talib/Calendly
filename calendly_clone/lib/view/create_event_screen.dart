@@ -3,20 +3,29 @@ import 'package:calendly_clone/utils/reuseable_button.dart';
 import 'package:calendly_clone/utils/reuseable_text.dart';
 import 'package:calendly_clone/utils/reuseable_textformField.dart';
 import 'package:calendly_clone/utils/reuseable_zoom_container.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:calendly_clone/utils/reuseble_bottomsheet.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class CreateEventScreen extends StatelessWidget {
-  const CreateEventScreen({super.key});
+// ignore: must_be_immutable
+class CreateEventScreen extends StatefulWidget {
+  Map<String, dynamic>? selectedValue;
+  CreateEventScreen({
+    super.key,
+    this.selectedValue,
+  });
 
   @override
+  State<CreateEventScreen> createState() => _CreateEventScreenState();
+}
+
+class _CreateEventScreenState extends State<CreateEventScreen> {
+  @override
   Widget build(BuildContext context) {
-    print('Rebuil Jibran Code');
     Controller controller = Get.put(Controller());
+
     return SafeArea(
       child: DefaultTabController(
         length: 2,
@@ -345,36 +354,83 @@ class CreateEventScreen extends StatelessWidget {
                             SizedBox(
                               height: 5.h,
                             ),
-                            const Row(
-                              children: [
-                                ReuseZoomCointainer(
-                                  imagePath: 'assets/images/zoomicon.png',
-                                  text: 'Zoom',
+                            if (widget.selectedValue == null)
+                              Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      const ReuseZoomCointainer(
+                                        imagePath: 'assets/images/zoomicon.png',
+                                        text: 'Zoom',
+                                      ),
+                                      const Spacer(),
+                                      InkWell(
+                                        onTap: () {
+                                          print(
+                                              " Seleted Value: ${widget.selectedValue}");
+                                          Get.bottomSheet(
+                                              const ReuseBottomSheet());
+                                        },
+                                        child: const ReuseZoomCointainer(
+                                          imagePath:
+                                              'assets/images/callicon.png',
+                                          text: 'Phone call',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  Row(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {},
+                                        child: const ReuseZoomCointainer(
+                                          imagePath:
+                                              'assets/images/pinicon.png',
+                                          text: 'In-person meeting',
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      const ReuseZoomCointainer(
+                                        imagePath:
+                                            'assets/images/downarrowicon.png',
+                                        text: 'In-person meeting',
+                                        borderColor: Colors.transparent,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              )
+                            else
+                              InkWell(
+                                onTap: () {
+                                  Get.bottomSheet(const ReuseBottomSheet());
+                                },
+                                child: Card(
+                                  child: ListTile(
+                                    title: Text(widget.selectedValue!['title']
+                                        .toString()),
+                                    // leading: Image(
+                                    //     image: AssetImage(
+                                    //         widget.selectedValue['Icons'])),
+                                    trailing: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          widget.selectedValue = null;
+                                          print(
+                                              'check cut seleted value : ${widget.selectedValue} ');
+                                        });
+                                      },
+                                      child: const ImageIcon(
+                                          color: Colors.red,
+                                          AssetImage(
+                                              'assets/images/cross.png')),
+                                    ),
+                                  ),
                                 ),
-                                Spacer(),
-                                ReuseZoomCointainer(
-                                  imagePath: 'assets/images/callicon.png',
-                                  text: 'Phone call',
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            const Row(
-                              children: [
-                                ReuseZoomCointainer(
-                                  imagePath: 'assets/images/pinicon.png',
-                                  text: 'In-person meeting',
-                                ),
-                                Spacer(),
-                                ReuseZoomCointainer(
-                                  imagePath: 'assets/images/downarrowicon.png',
-                                  text: 'In-person meeting',
-                                  borderColor: Colors.transparent,
-                                ),
-                              ],
-                            ),
+                              ),
                           ],
                         ),
                       ),
@@ -390,6 +446,11 @@ class CreateEventScreen extends StatelessWidget {
                       // SizedBox(
                       //   height: 17.h,
                       // ),
+                      widget.selectedValue != null
+                          ? SizedBox(
+                              height: 85.h,
+                            )
+                          : SizedBox(),
                       const Divider(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
