@@ -29,20 +29,6 @@ class _ReuseBottomSheetState extends State<ReuseBottomSheet> {
 
   Map<String, dynamic>? _selectedValue;
 
-  List platfroms = [
-    'Phone call',
-    'In-person meeting',
-    'Ask invites',
-    'Custom',
-  ];
-
-  List<IconData> platfromIcons = [
-    Icons.phone,
-    Icons.pin_drop,
-    Icons.add_location_alt_outlined,
-    Icons.dashboard_customize_outlined,
-  ];
-
   @override
   void initState() {
     // TODO: implement initState
@@ -80,43 +66,12 @@ class _ReuseBottomSheetState extends State<ReuseBottomSheet> {
                   borderRadius: BorderRadius.circular(10.r),
                   border: Border.all(color: const Color(0xffD9D9D9)),
                 ),
-                child:
-                    //   InkWell(
-                    //     onTap: () {
-                    //       Get.bottomSheet(Container(
-                    //         color: Colors.white,
-                    //         child: Expanded(
-                    //           child: ListView.builder(
-                    //             itemCount: platfroms.length,
-                    //             itemBuilder: (context, index) {
-                    //               final icon = platfromIcons[index];
-                    //               return InkWell(
-                    //                 onTap: () {
-                    //                   // print('${icon} jibran ${platfroms[index]}');
-                    //                 },
-                    //                 child: ListTile(
-                    //                   leading: Icon(icon),
-                    //                   title: Text(platfroms[index].toString()),
-                    //                 ),
-                    //               );
-                    //             },
-                    //           ),
-                    //         ),
-                    //       ));
-                    //     },
-                    //     child: const ListTile(
-                    //       leading: Icon(Icons.phone),
-                    //       title: Text('Phone call'),
-                    //       trailing: Icon(Icons.keyboard_arrow_down_outlined),
-                    //     ),
-                    //   ),
-                    // ),
-                    Obx(
+                child: Obx(
                   () => DropdownButtonHideUnderline(
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.r),
-                          border: Border.all(color: Color(0xffD9D9D9))),
+                          border: Border.all(color: const Color(0xffD9D9D9))),
                       child: Center(
                         child: DropdownButton(
                           hint: const Text('Selet Platfrom'),
@@ -126,7 +81,6 @@ class _ReuseBottomSheetState extends State<ReuseBottomSheet> {
                           alignment: Alignment.topCenter,
                           items: newEventBottomSheet
                               .map<DropdownMenuItem<Map<String, dynamic>>>((e) {
-                            print({"Jibran $e"});
                             return DropdownMenuItem<Map<String, dynamic>>(
                                 value: e,
                                 child: SizedBox(
@@ -142,7 +96,6 @@ class _ReuseBottomSheetState extends State<ReuseBottomSheet> {
                                 ));
                           }).toList(),
                           onChanged: (value) {
-                            print(value);
                             setState(() {
                               _selectedValue = value;
                             });
