@@ -2,6 +2,7 @@ import 'package:calendly_clone/controller/bottom_sheet_controller.dart';
 import 'package:calendly_clone/utils/reuseable_button.dart';
 import 'package:calendly_clone/utils/reuseable_radio_button.dart';
 import 'package:calendly_clone/utils/reuseable_text.dart';
+import 'package:calendly_clone/utils/reuseable_textformField.dart';
 import 'package:calendly_clone/view/create_event_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,16 +40,15 @@ class _ReuseBottomSheetState extends State<ReuseBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        width: Get.width * 0.97,
-        height: Get.height * 0.8,
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-            )),
+    return Container(
+      width: Get.width * 0.97,
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+          )),
+      child: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
           child: Column(
@@ -113,6 +113,8 @@ class _ReuseBottomSheetState extends State<ReuseBottomSheet> {
                   )),
               if (_selectedValue!['title'] == 'Phone Call')
                 const ReuseRadiobotton()
+              else if (_selectedValue!['title'] == 'In-person meeting')
+                const ReuseTextFormField()
               else
                 const SizedBox(),
               InkWell(

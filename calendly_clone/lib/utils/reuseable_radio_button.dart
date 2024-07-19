@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:calendly_clone/utils/reuseable_text.dart';
+import 'package:calendly_clone/utils/reuseable_textformField.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +15,16 @@ class ReuseRadiobotton extends StatefulWidget {
 }
 
 class _ReuseRadiobottonState extends State<ReuseRadiobotton> {
+  TextEditingController countryCodeTextEdiditionController =
+      TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    countryCodeTextEdiditionController.text = '+92';
+  }
+
   int _selectedValue = 1;
   @override
   Widget build(BuildContext context) {
@@ -61,20 +74,33 @@ class _ReuseRadiobottonState extends State<ReuseRadiobotton> {
             },
           ),
           _selectedValue == 2
-              ? TextFormField(
-                  decoration: InputDecoration(
-                      prefixIcon: SizedBox(
-                        height: 40,
-                        width: 120.w,
-                        child: const CountryCodePicker(
-                          alignLeft: true,
-                          initialSelection: 'Pk',
-                          hideSearch: true,
-                        ),
+              ? Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.h),
+                  child: ReuseTextFormField(
+                    textEditingController: countryCodeTextEdiditionController,
+                    keyboardType: TextInputType.phone,
+                    enabledBorderColor: const Color(0xff757575),
+                    prefixIcon: SizedBox(
+                      width: 84.w,
+                      child: CountryCodePicker(
+                        hideMainText: true,
+                        alignLeft: true,
+                        onChanged: (value) {
+                          print('Contry code value $value');
+                          setState(() {
+                            countryCodeTextEdiditionController.text =
+                                value.toString();
+                            print(
+                                'textediditng value: ${countryCodeTextEdiditionController.text}');
+                          });
+                        },
+                        initialSelection: 'Pk',
+                        hideSearch: true,
                       ),
-                      border: OutlineInputBorder()),
+                    ),
+                  ),
                 )
-              : const SizedBox()
+              : const SizedBox(),
         ],
       ),
     );

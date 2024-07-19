@@ -7,6 +7,7 @@ class ReuseTextFormField extends StatelessWidget {
   final Color focusedBorderColor;
   final Color enabledBorderColor;
   final TextInputType? keyboardType;
+  final TextEditingController? textEditingController;
 
   final double borderRadius;
 
@@ -17,11 +18,13 @@ class ReuseTextFormField extends StatelessWidget {
       this.focusedBorderColor = const Color(0xff0047ff),
       this.enabledBorderColor = const Color(0xff0047ff),
       this.borderRadius = 8,
-      this.keyboardType});
+      this.keyboardType,
+      this.textEditingController});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: textEditingController,
       cursorColor: Colors.black.withOpacity(0.7),
       textAlign: TextAlign.start,
       keyboardType: keyboardType,
