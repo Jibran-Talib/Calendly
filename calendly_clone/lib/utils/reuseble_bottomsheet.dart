@@ -98,6 +98,7 @@ class _ReuseBottomSheetState extends State<ReuseBottomSheet> {
                           onChanged: (value) {
                             setState(() {
                               _selectedValue = value;
+                              print('Check Value $_selectedValue');
                             });
 
                             // controller.seletedValue?.value = value!;
@@ -107,7 +108,7 @@ class _ReuseBottomSheetState extends State<ReuseBottomSheet> {
                     ),
                   ),
                 )),
-            Spacer(),
+            const Spacer(),
             InkWell(
                 onTap: () {
                   Navigator.push(
