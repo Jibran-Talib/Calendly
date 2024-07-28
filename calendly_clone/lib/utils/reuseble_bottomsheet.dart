@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:calendly_clone/controller/bottom_sheet_controller.dart';
 import 'package:calendly_clone/utils/reuseable_button.dart';
 import 'package:calendly_clone/utils/reuseable_radio_button.dart';
@@ -17,6 +19,7 @@ class ReuseBottomSheet extends StatefulWidget {
 
 class _ReuseBottomSheetState extends State<ReuseBottomSheet> {
   BottomSheetController controller = Get.put(BottomSheetController());
+  TextEditingController textEditingController = TextEditingController();
 
   List<Map<String, dynamic>> newEventBottomSheet = [
     {'title': 'Phone Call', 'Icons': 'assets/images/telephone.png'},
@@ -113,10 +116,29 @@ class _ReuseBottomSheetState extends State<ReuseBottomSheet> {
                   )),
               if (_selectedValue!['title'] == 'Phone Call')
                 const ReuseRadiobotton()
-              else if (_selectedValue!['title'] == 'In-person meeting')
-                const ReuseTextFormField()
+              else if (_selectedValue!['title'] == 'In-person meeting' ||
+                  _selectedValue!['title'] == 'Custom')
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    ReuseTextFormField(
+                      enabledBorderColor: const Color(0xff757575),
+                      textEditingController: textEditingController,
+                      hintText: _selectedValue!['title'] == 'In-person meeting'
+                          ? 'Write address'
+                          : 'Write your text here',
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                  ],
+                )
               else
-                const SizedBox(),
+                SizedBox(
+                  height: 10.h,
+                ),
               InkWell(
                   onTap: () {
                     Navigator.push(
@@ -124,8 +146,11 @@ class _ReuseBottomSheetState extends State<ReuseBottomSheet> {
                         MaterialPageRoute(
                           builder: (context) => CreateEventScreen(
                             selectedValue: _selectedValue,
+                            buttomwidgetValue: textEditingController.text,
                           ),
                         ));
+                    print(
+                        'text controller value : ${textEditingController.text}');
                   },
                   child: const ReuseButton(
                       widget: ReuseText(
