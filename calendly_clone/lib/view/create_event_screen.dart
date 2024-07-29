@@ -591,8 +591,12 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                                   ),
                                   Obx(
                                     () => ReuseText(
-                                      text: controller
-                                          .dropDownButtonMintsValue.value,
+                                      text: controller.dropDownButtonMintsValue
+                                                  .value ==
+                                              'Custum'
+                                          ? 'Custum mint ${controller.dropDownButtonMintsHourValue.value}'
+                                          : controller
+                                              .dropDownButtonMintsValue.value,
                                       color: const Color(0xff757575),
                                       fontWeight: FontWeight.bold,
                                     ),
