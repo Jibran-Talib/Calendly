@@ -15,6 +15,8 @@ class Controller extends GetxController {
   RxString seleted_platfrom = ''.obs;
   Rx<IconData> seleted_platfrom_icon = Icons.phone.obs;
 
+  Rx<TextEditingController> textEditingController = TextEditingController().obs;
+
   List<Color> dropDownButtonColors =
       [Colors.blue, Colors.red, Colors.green, Colors.purple, Colors.yellow].obs;
 

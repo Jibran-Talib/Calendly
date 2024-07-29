@@ -267,12 +267,18 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                                             SizedBox(
                                                 height: 30.h,
                                                 width: 50.w,
-                                                child: ReuseTextFormField(
-                                                  borderRadius: 5.r,
-                                                  enabledBorderColor:
-                                                      const Color(0xff757575),
-                                                  keyboardType:
-                                                      TextInputType.number,
+                                                child: Obx(
+                                                  () => ReuseTextFormField(
+                                                    borderRadius: 5.r,
+                                                    enabledBorderColor:
+                                                        const Color(0xff757575),
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    textEditingController:
+                                                        controller
+                                                            .textEditingController
+                                                            .value,
+                                                  ),
                                                 )),
                                             SizedBox(
                                               width: 5.w,
@@ -594,7 +600,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                                       text: controller.dropDownButtonMintsValue
                                                   .value ==
                                               'Custum'
-                                          ? 'Custum mint ${controller.dropDownButtonMintsHourValue.value}'
+                                          ? '${controller.textEditingController.value.text} ${controller.dropDownButtonMintsHourValue.value}'
                                           : controller
                                               .dropDownButtonMintsValue.value,
                                       color: const Color(0xff757575),
