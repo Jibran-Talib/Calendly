@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:calendly_clone/controller/bottom_sheet_controller.dart';
 import 'package:calendly_clone/utils/reuseable_button.dart';
 import 'package:calendly_clone/utils/reuseable_radio_button.dart';
