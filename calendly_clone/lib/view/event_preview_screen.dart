@@ -5,7 +5,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class EventPreviewScreen extends StatelessWidget {
-  const EventPreviewScreen({super.key});
+  final Map<String, dynamic> selectedValue;
+  final String buttomwidgetValue;
+  const EventPreviewScreen(
+      {super.key,
+      required this.selectedValue,
+      required this.buttomwidgetValue});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +26,7 @@ class EventPreviewScreen extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(10)),
-            child: Column(
+            child: ListView(
               children: [
                 Container(
                   height: 45.h,
@@ -64,16 +69,20 @@ class EventPreviewScreen extends StatelessWidget {
                 SizedBox(
                   height: 25.h,
                 ),
-                const ReuseText(
-                  text: 'Jibran Talib',
-                  color: Color(0xff757575),
-                  fontWeight: FontWeight.bold,
+                const Center(
+                  child: ReuseText(
+                    text: 'Jibran Talib',
+                    color: Color(0xff757575),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                ReuseText(
-                  text: 'Event name here',
-                  color: Colors.grey.shade800,
-                  fontWeight: FontWeight.bold,
-                  size: 22,
+                Center(
+                  child: ReuseText(
+                    text: 'Event name here',
+                    color: Colors.grey.shade800,
+                    fontWeight: FontWeight.bold,
+                    size: 22,
+                  ),
                 ),
                 SizedBox(
                   height: 20.h,
@@ -87,7 +96,7 @@ class EventPreviewScreen extends StatelessWidget {
                     Icon(
                       Icons.access_time,
                       color: const Color(0xff757575),
-                      size: 25.h,
+                      size: 20.h,
                     ),
                     SizedBox(
                       width: 5.w,
@@ -104,7 +113,50 @@ class EventPreviewScreen extends StatelessWidget {
                     )
                   ],
                 ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                selectedValue.isNotEmpty
+                    ? Row(
+                        children: [
+                          SizedBox(
+                            width: 20.w,
+                          ),
+                          Image(
+                            image: AssetImage(
+                              selectedValue['Icons'].toString(),
+                            ),
+                            height: 20.h,
+                            width: 20.h,
+                          ),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          ReuseText(
+                            text: selectedValue['title'].toString(),
+                            color: const Color(0xff757575),
+                            fontWeight: FontWeight.bold,
+                          )
+                        ],
+                      )
+                    : const SizedBox(),
                 const Divider(),
+                SizedBox(
+                  height: 300.h,
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(12.h),
+                      child: const ReuseText(
+                        textAlign: TextAlign.center,
+                        text:
+                            'A preview of your availability will             show on the next step',
+                        size: 15,
+                        color: Color(0xff757575),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
           ),

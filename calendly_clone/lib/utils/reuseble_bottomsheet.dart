@@ -1,9 +1,9 @@
 import 'package:calendly_clone/controller/bottom_sheet_controller.dart';
 import 'package:calendly_clone/utils/reuseable_button.dart';
-import 'package:calendly_clone/utils/reuseable_radio_button.dart';
 import 'package:calendly_clone/utils/reuseable_text.dart';
 import 'package:calendly_clone/utils/reuseable_textformField.dart';
 import 'package:calendly_clone/view/create_event_screen.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -16,6 +16,9 @@ class ReuseBottomSheet extends StatefulWidget {
 }
 
 class _ReuseBottomSheetState extends State<ReuseBottomSheet> {
+  TextEditingController countryCodeTextEdiditionController =
+      TextEditingController();
+
   BottomSheetController controller = Get.put(BottomSheetController());
   TextEditingController textEditingController = TextEditingController();
 
@@ -37,8 +40,11 @@ class _ReuseBottomSheetState extends State<ReuseBottomSheet> {
     // TODO: implement initState
     super.initState();
     _selectedValue = newEventBottomSheet[0];
+    countryCodeTextEdiditionController.text = '+92';
+    print('init funtion check  ${textEditingController.text}');
   }
 
+  int _radioselectedValue = 1;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -77,7 +83,7 @@ class _ReuseBottomSheetState extends State<ReuseBottomSheet> {
                             border: Border.all(color: const Color(0xffD9D9D9))),
                         child: Center(
                           child: DropdownButton(
-                            hint: const Text('Selet Platfrom'),
+                            hint: const Text('Select Platform'),
                             value: _selectedValue,
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             iconEnabledColor: const Color(0xff356eff),
@@ -113,7 +119,83 @@ class _ReuseBottomSheetState extends State<ReuseBottomSheet> {
                     ),
                   )),
               if (_selectedValue!['title'] == 'Phone Call')
-                const ReuseRadiobotton()
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.w),
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      RadioListTile(
+                        activeColor: const Color(0xff0047ff),
+                        title: const ReuseText(
+                          text: 'I will call my invite',
+                          color: Colors.black,
+                        ),
+                        subtitle: const ReuseText(
+                          text:
+                              "Calendly will require your invitee's phone number before scheduling.",
+                          color: Color(0xff757575),
+                          size: 12,
+                        ),
+                        value: 1,
+                        groupValue: _radioselectedValue,
+                        onChanged: (value) {
+                          setState(() {
+                            _radioselectedValue = value!;
+                          });
+                        },
+                      ),
+                      RadioListTile(
+                        activeColor: const Color(0xff0047ff),
+                        title: const ReuseText(
+                          text: 'My invitee should call me',
+                          color: Colors.black,
+                        ),
+                        subtitle: const ReuseText(
+                          text:
+                              "Calendly will provide your number after the call has been scheduled.",
+                          color: Color(0xff757575),
+                          size: 12,
+                        ),
+                        value: 2,
+                        groupValue: _radioselectedValue,
+                        onChanged: (value) {
+                          setState(() {
+                            _radioselectedValue = value!;
+                          });
+                        },
+                      ),
+                      _radioselectedValue == 2
+                          ? Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.h),
+                              child: ReuseTextFormField(
+                                textEditingController:
+                                    countryCodeTextEdiditionController,
+                                keyboardType: TextInputType.phone,
+                                enabledBorderColor: const Color(0xff757575),
+                                prefixIcon: SizedBox(
+                                  width: 84.w,
+                                  child: CountryCodePicker(
+                                    hideMainText: true,
+                                    alignLeft: true,
+                                    onChanged: (value) {
+                                      print('Country code value $value');
+                                      setState(() {
+                                        countryCodeTextEdiditionController
+                                            .text = value.toString();
+                                      });
+                                      print(
+                                          'textEditing value: ${countryCodeTextEdiditionController.text}');
+                                    },
+                                    initialSelection: 'Pk',
+                                    hideSearch: true,
+                                  ),
+                                ),
+                              ),
+                            )
+                          : const SizedBox(),
+                    ],
+                  ),
+                )
               else if (_selectedValue!['title'] == 'In-person meeting' ||
                   _selectedValue!['title'] == 'Custom')
                 Column(
@@ -139,20 +221,31 @@ class _ReuseBottomSheetState extends State<ReuseBottomSheet> {
                 ),
               InkWell(
                   onTap: () {
+                    String setButtomwidgetValue;
+                    if (_radioselectedValue == 2 &&
+                        _selectedValue!['title'] == 'Phone Call') {
+                      setButtomwidgetValue =
+                          countryCodeTextEdiditionController.text;
+                    } else {
+                      setButtomwidgetValue = textEditingController.text;
+                    }
+                    print(
+                        'Country code text Controller: ${countryCodeTextEdiditionController.text}');
+                    print(
+                        'Simple text Controller: ${textEditingController.text}');
+                    print('setButtomwidgetValue: $setButtomwidgetValue');
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => CreateEventScreen(
                             selectedValue: _selectedValue,
-                            buttomwidgetValue: textEditingController.text,
+                            buttomwidgetValue: setButtomwidgetValue,
                           ),
                         ));
-                    print(
-                        'text controller value : ${textEditingController.text}');
                   },
                   child: const ReuseButton(
                       widget: ReuseText(
-                    text: 'select',
+                    text: 'Select',
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     size: 15,

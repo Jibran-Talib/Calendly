@@ -6,11 +6,9 @@ import 'package:calendly_clone/utils/reuseable_zoom_container.dart';
 import 'package:calendly_clone/utils/reuseble_bottomsheet.dart';
 import 'package:calendly_clone/view/event_preview_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 
 // ignore: must_be_immutable
 class CreateEventScreen extends StatefulWidget {
@@ -220,7 +218,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                               width: 138.w,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5.r),
-                                  border: Border.all(color: Color(0xff757575))),
+                                  border: Border.all(
+                                      color: const Color(0xff757575))),
                               child: Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 11.w),
                                 child: DropdownButtonHideUnderline(
@@ -377,8 +376,6 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                                       const Spacer(),
                                       InkWell(
                                         onTap: () {
-                                          print(
-                                              " Seleted Value: ${widget.selectedValue}");
                                           Get.bottomSheet(
                                               const ReuseBottomSheet());
                                         },
@@ -437,8 +434,6 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                                       onTap: () {
                                         setState(() {
                                           widget.selectedValue = null;
-                                          print(
-                                              'check cut seleted value : ${widget.selectedValue} ');
                                         });
                                       },
                                       child: const ImageIcon(
@@ -507,7 +502,10 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       ),
                     ],
                   ),
-                  const EventPreviewScreen(),
+                  EventPreviewScreen(
+                    buttomwidgetValue: widget.buttomwidgetValue.toString(),
+                    selectedValue: widget.selectedValue ?? {},
+                  ),
                 ]),
               )
             ],

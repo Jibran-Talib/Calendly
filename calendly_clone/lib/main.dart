@@ -1,4 +1,5 @@
 import 'package:calendly_clone/firebase_options.dart';
+import 'package:calendly_clone/view/create_event_screen.dart';
 
 import 'package:calendly_clone/view/welcomeScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
           useMaterial3: true,
         ),
-        home: const WelcomeScreen(),
+        home: CreateEventScreen(),
       ),
     );
   }
