@@ -20,6 +20,7 @@ class OneOffMeeting extends StatefulWidget {
 }
 
 class _OneOffMeetingState extends State<OneOffMeeting> {
+  DateTime initailDate = DateTime.now();
   final List<CalendarEventData> _events = [
     CalendarEventData(
       date: DateTime.now(),
@@ -233,36 +234,44 @@ class _OneOffMeetingState extends State<OneOffMeeting> {
                         children: [
                           DayView(
                             controller: EventController()..addAll(_events),
-                            showLiveTimeLineInAllDays: true,
                             minDay: DateTime(2010),
                             maxDay: DateTime(2030),
                             heightPerMinute: 1,
                             onEventTap: (events, date) => print(events),
-                            eventTileBuilder: (date, events, boundary,
-                                startDuration, endDuration) {
-                              return ListTile(
-                                title: Text('Jibran'),
-                                subtitle: Text('subtile'),
-                              );
-                            },
+                            initialDay: initailDate,
+                            headerStyle: HeaderStyle(
+                                titleAlign: TextAlign.start,
+                                headerPadding: EdgeInsets.only(left: 40.w),
+                                headerTextStyle: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.sp),
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                )),
                             // dayTitleBuilder: (date) {
                             //   return Center(
                             //     child: InkWell(
                             //       onTap: () async {
                             //         final pickedDate = await showDatePicker(
                             //           context: context,
-                            //           initialDate: date,
+                            //           initialDate: initailDate,
                             //           firstDate: DateTime.utc(2010, 08, 22),
                             //           lastDate: DateTime.utc(2030, 08, 22),
                             //         );
                             //         print(pickedDate);
 
+                            //         setState(() {
+                            //           initailDate = pickedDate!;
+
+                            //         });
+                            //         print('return Date : $initailDate');
                             //       },
                             //       child: Container(
                             //         height: 50,
                             //         width: 300,
                             //         color: Colors.amber,
-                            //         child: Center(child: Text(date.toString())),
+                            //         child: Center(
+                            //             child: Text(initailDate.toString())),
                             //       ),
                             //     ),
                             //   );
@@ -278,66 +287,3 @@ class _OneOffMeetingState extends State<OneOffMeeting> {
             )));
   }
 }
-
-// class Meeting {
-//   /// Creates a meeting class with required details.
-//   Meeting(this.eventName, this.from, this.to, this.background, this.isAllDay);
-
-//   /// Event name which is equivalent to subject property of [Appointment].
-//   String eventName;
-
-//   /// From which is equivalent to start time property of [Appointment].
-//   DateTime from;
-
-//   /// To which is equivalent to end time property of [Appointment].
-//   DateTime to;
-
-//   /// Background which is equivalent to color property of [Appointment].
-//   Color background;
-
-//   /// IsAllDay which is equivalent to isAllDay property of [Appointment].
-//   bool isAllDay;
-// }
-
-// // class MeetingDataSource extends CalendarDataSource {
-// //   /// Creates a meeting data source, which used to set the appointment
-// //   /// collection to the calendar
-// //   MeetingDataSource(List<Meeting> source) {
-// //     appointments = source;
-// //   }
-
-// //   @override
-// //   DateTime getStartTime(int index) {
-// //     return _getMeetingData(index).from;
-// //   }
-
-// //   @override
-// //   DateTime getEndTime(int index) {
-// //     return _getMeetingData(index).to;
-// //   }
-
-// //   @override
-// //   String getSubject(int index) {
-// //     return _getMeetingData(index).eventName;
-// //   }
-
-// //   @override
-// //   Color getColor(int index) {
-// //     return _getMeetingData(index).background;
-// //   }
-
-// //   @override
-// //   bool isAllDay(int index) {
-// //     return _getMeetingData(index).isAllDay;
-// //   }
-
-// //   Meeting _getMeetingData(int index) {
-// //     final dynamic meeting = appointments![index];
-// //     late final Meeting meetingData;
-// //     if (meeting is Meeting) {
-// //       meetingData = meeting;
-// //     }
-
-// //     return meetingData;
-// //   }
-// // }
