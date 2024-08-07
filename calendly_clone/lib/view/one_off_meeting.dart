@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:calendar_view/calendar_view.dart';
 
 import 'package:calendly_clone/utils/reuseable_button.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class OneOffMeeting extends StatefulWidget {
   const OneOffMeeting({super.key});
@@ -17,7 +20,7 @@ class OneOffMeeting extends StatefulWidget {
 }
 
 class _OneOffMeetingState extends State<OneOffMeeting> {
-  List<CalendarEventData> _events = [
+  final List<CalendarEventData> _events = [
     CalendarEventData(
       date: DateTime.now(),
       title: "Project meeting",
@@ -230,6 +233,40 @@ class _OneOffMeetingState extends State<OneOffMeeting> {
                         children: [
                           DayView(
                             controller: EventController()..addAll(_events),
+                            showLiveTimeLineInAllDays: true,
+                            minDay: DateTime(2010),
+                            maxDay: DateTime(2030),
+                            heightPerMinute: 1,
+                            onEventTap: (events, date) => print(events),
+                            eventTileBuilder: (date, events, boundary,
+                                startDuration, endDuration) {
+                              return ListTile(
+                                title: Text('Jibran'),
+                                subtitle: Text('subtile'),
+                              );
+                            },
+                            // dayTitleBuilder: (date) {
+                            //   return Center(
+                            //     child: InkWell(
+                            //       onTap: () async {
+                            //         final pickedDate = await showDatePicker(
+                            //           context: context,
+                            //           initialDate: date,
+                            //           firstDate: DateTime.utc(2010, 08, 22),
+                            //           lastDate: DateTime.utc(2030, 08, 22),
+                            //         );
+                            //         print(pickedDate);
+
+                            //       },
+                            //       child: Container(
+                            //         height: 50,
+                            //         width: 300,
+                            //         color: Colors.amber,
+                            //         child: Center(child: Text(date.toString())),
+                            //       ),
+                            //     ),
+                            //   );
+                            // },
                           ),
                           Container(
                             color: Colors.red.shade50,

@@ -1,4 +1,3 @@
-import 'package:calendar_view/calendar_view.dart';
 import 'package:calendly_clone/firebase_options.dart';
 import 'package:calendly_clone/view/one_off_meeting.dart';
 
