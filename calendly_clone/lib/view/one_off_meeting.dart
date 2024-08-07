@@ -1,16 +1,14 @@
-import 'dart:math';
-
 import 'package:calendar_view/calendar_view.dart';
 
 import 'package:calendly_clone/utils/reuseable_button.dart';
 import 'package:calendly_clone/utils/reuseable_text.dart';
+import 'package:calendly_clone/view/meeting_details.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
 class OneOffMeeting extends StatefulWidget {
   const OneOffMeeting({super.key});
@@ -225,9 +223,6 @@ class _OneOffMeetingState extends State<OneOffMeeting> {
                     ),
                     Divider(
                       color: Colors.grey.shade200,
-                      endIndent: 0,
-                      indent: 0,
-                      height: 0,
                     ),
                     Expanded(
                       child: TabBarView(
@@ -237,14 +232,26 @@ class _OneOffMeetingState extends State<OneOffMeeting> {
                             minDay: DateTime(2010),
                             maxDay: DateTime(2030),
                             heightPerMinute: 1,
+
                             onEventTap: (events, date) => print(events),
                             initialDay: initailDate,
+
+                            safeAreaOption: SafeAreaOption(),
                             headerStyle: HeaderStyle(
-                                titleAlign: TextAlign.start,
-                                headerPadding: EdgeInsets.only(left: 40.w),
+                                leftIcon: const Icon(
+                                  Icons.arrow_back_ios,
+                                  color: Color(0xff0047ff),
+                                ),
+                                rightIcon: const Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Color(0xff0047ff),
+                                ),
+                                headerPadding: EdgeInsets.only(left: 45.w),
+                                rightIconPadding: EdgeInsets.only(right: 45.w),
                                 headerTextStyle: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.sp),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15.sp,
+                                ),
                                 decoration: const BoxDecoration(
                                   shape: BoxShape.rectangle,
                                 )),
@@ -277,9 +284,7 @@ class _OneOffMeetingState extends State<OneOffMeeting> {
                             //   );
                             // },
                           ),
-                          Container(
-                            color: Colors.red.shade50,
-                          )
+                          MeetingDetails()
                         ],
                       ),
                     )
