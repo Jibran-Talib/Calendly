@@ -5,6 +5,7 @@ import 'package:calendly_clone/utils/reuseable_textformField.dart';
 import 'package:calendly_clone/utils/reuseable_zoom_container.dart';
 import 'package:calendly_clone/utils/reuseble_bottomsheet.dart';
 import 'package:calendly_clone/view/event_preview_screen.dart';
+import 'package:calendly_clone/view/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -46,7 +47,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                   ),
                   IconButton(
                       onPressed: () {
-                        Get.back();
+                        Get.to(() => const HomeScreen());
                       },
                       icon: const Icon(
                           color: Color(0xff757575), Icons.arrow_back_ios)),

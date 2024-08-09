@@ -138,7 +138,11 @@ class SignUpScreen extends StatelessWidget {
                             widget: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset('assets/images/microsoft.png'),
+                                Image.asset(
+                                  'assets/images/microsoft.png',
+                                  height: 25.h,
+                                  width: 25.w,
+                                ),
                                 SizedBox(
                                   width: 10.w,
                                 ),

@@ -1,9 +1,9 @@
 import 'package:calendly_clone/utils/reuseable_text.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// ignore: must_be_immutable
 class MeetingDetails extends StatefulWidget {
   const MeetingDetails({super.key});
 
@@ -16,21 +16,14 @@ class _MeetingDetailsState extends State<MeetingDetails> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(22.w),
-      child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          InkWell(
-            onTap: () async {
-              final String currentTimeZone =
-                  await FlutterNativeTimezone.getLocalTimezone();
-              print(currentTimeZone);
-            },
-            child: ReuseText(
-                text: 'Time zone',
-                size: 10,
-                fontWeight: FontWeight.bold,
-                color: Colors.black),
-          ),
+          ReuseText(
+              text: 'Time zone',
+              size: 10,
+              fontWeight: FontWeight.bold,
+              color: Colors.black),
         ],
       ),
     );
