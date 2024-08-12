@@ -1,13 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 
-class TimeZoneList extends StatefulWidget {
-  const TimeZoneList({super.key});
-
-  @override
-  State<TimeZoneList> createState() => _TimeZoneListState();
-}
-
-class _TimeZoneListState extends State<TimeZoneList> {
+class TimeZoneListState extends GetxController {
   List<Map<String, dynamic>> timeZones = [
     {'country': 'Ivory Coast', 'offset': 'GMT+00:00'},
     {'country': 'Ghana', 'offset': 'GMT+00:00'},
@@ -126,10 +119,7 @@ class _TimeZoneListState extends State<TimeZoneList> {
     {'country': 'Argentina', 'offset': 'GMT-03:00'},
     {'country': 'Argentina', 'offset': 'GMT-03:00'},
     {'country': 'Argentina', 'offset': 'GMT-03:00'},
-  ];
+  ].obs;
 
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
+  RxString? timeZoneValue;
 }
