@@ -24,6 +24,16 @@ class _MeetingDetailsState extends State<MeetingDetails> {
               size: 10,
               fontWeight: FontWeight.bold,
               color: Colors.black),
+          ReuseText(
+              text: 'Time zone',
+              size: 10,
+              fontWeight: FontWeight.bold,
+              color: Colors.black),
+          ReuseText(
+              text: 'Time zone',
+              size: 10,
+              fontWeight: FontWeight.bold,
+              color: Colors.black),
         ],
       ),
     );
