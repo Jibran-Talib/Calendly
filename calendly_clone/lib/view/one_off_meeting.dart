@@ -11,13 +11,28 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OneOffMeeting extends StatefulWidget {
-  const OneOffMeeting({super.key});
+  const OneOffMeeting({
+    super.key,
+  });
 
   @override
   State<OneOffMeeting> createState() => _OneOffMeetingState();
 }
 
-class _OneOffMeetingState extends State<OneOffMeeting> {
+class _OneOffMeetingState extends State<OneOffMeeting>
+    with SingleTickerProviderStateMixin {
+  TabController? tabController;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    tabController = TabController(
+      length: 2,
+      vsync: this,
+      initialIndex: 0,
+    );
+  }
+
   DateTime initailDate = DateTime.now();
   final List<CalendarEventData> _events = [
     CalendarEventData(
@@ -172,6 +187,7 @@ class _OneOffMeetingState extends State<OneOffMeeting> {
                         child: Padding(
                           padding: EdgeInsets.all(3.h),
                           child: TabBar(
+                              controller: tabController,
                               dividerHeight: 0,
                               tabAlignment: TabAlignment.center,
                               indicatorSize: TabBarIndicatorSize.tab,
