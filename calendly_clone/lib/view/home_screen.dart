@@ -2,7 +2,9 @@ import 'package:calendly_clone/utils/reuseable_listtile.dart';
 import 'package:calendly_clone/utils/reuseable_listtile2.dart';
 import 'package:calendly_clone/utils/reuseable_text.dart';
 import 'package:calendly_clone/utils/reuseable_textformField.dart';
+import 'package:calendly_clone/utils/tab_bar_index.dart';
 import 'package:calendly_clone/view/create_event_screen.dart';
+import 'package:calendly_clone/view/meeting_details.dart';
 import 'package:calendly_clone/view/one_off_meeting.dart';
 import 'package:calendly_clone/view/setting_screen.dart';
 import 'package:flutter/material.dart';
@@ -131,8 +133,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               'Create a new template for your regularly scheduled events.'),
                     ),
                     InkWell(
-                      onTap: () {
-                        Get.to(() => const OneOffMeeting());
+                      onTap: () async {
+                        TabBarIndex.tabBarIndex = 0;
+                        await Get.to(() => OneOffMeeting());
                       },
                       child: const Reuse2Listtile(
                           iconPath: 'assets/images/ticketicon.png',
@@ -141,7 +144,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               'Invite someone to pick a time to meet with you.'),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () async {
+                        TabBarIndex.tabBarIndex = 1;
+                        await Get.to(() => OneOffMeeting());
+                      },
                       child: const Reuse2Listtile(
                           iconPath: 'assets/images/voteicon.png',
                           titleText: 'Meeting poll',

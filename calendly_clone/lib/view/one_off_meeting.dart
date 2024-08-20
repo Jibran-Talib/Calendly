@@ -2,6 +2,7 @@ import 'package:calendar_view/calendar_view.dart';
 
 import 'package:calendly_clone/utils/reuseable_button.dart';
 import 'package:calendly_clone/utils/reuseable_text.dart';
+import 'package:calendly_clone/utils/tab_bar_index.dart';
 import 'package:calendly_clone/view/meeting_details.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -11,7 +12,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OneOffMeeting extends StatefulWidget {
-  const OneOffMeeting({
+  OneOffMeeting({
     super.key,
   });
 
@@ -21,17 +22,19 @@ class OneOffMeeting extends StatefulWidget {
 
 class _OneOffMeetingState extends State<OneOffMeeting>
     with SingleTickerProviderStateMixin {
-  TabController? tabController;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    tabController = TabController(
-      length: 2,
-      vsync: this,
-      initialIndex: 0,
-    );
-  }
+  // TabController? tabController;
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+
+  //   tabController = TabController(
+  //     length: 2,
+  //     vsync: this,
+  //     initialIndex: TabBarIndex.tabBarIndex,
+  //   );
+  // }
 
   DateTime initailDate = DateTime.now();
   final List<CalendarEventData> _events = [
@@ -114,6 +117,7 @@ class _OneOffMeetingState extends State<OneOffMeeting>
     return SafeArea(
         child: DefaultTabController(
             length: 2,
+            initialIndex: TabBarIndex.tabBarIndex,
             child: Scaffold(
               appBar: AppBar(
                 backgroundColor: Colors.white,
@@ -187,7 +191,6 @@ class _OneOffMeetingState extends State<OneOffMeeting>
                         child: Padding(
                           padding: EdgeInsets.all(3.h),
                           child: TabBar(
-                              controller: tabController,
                               dividerHeight: 0,
                               tabAlignment: TabAlignment.center,
                               indicatorSize: TabBarIndicatorSize.tab,
