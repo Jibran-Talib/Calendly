@@ -1,6 +1,7 @@
 import 'package:calendly_clone/firebase_options.dart';
 import 'package:calendly_clone/view/login_screen.dart';
 import 'package:calendly_clone/view/one_off_meeting.dart';
+import 'package:calendly_clone/view/signup_screen.dart';
 import 'package:calendly_clone/view/welcomeScreen.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
           useMaterial3: true,
         ),
-        home: LoginScren(),
+        home: LoginScreen(),
       ),
     );
   }

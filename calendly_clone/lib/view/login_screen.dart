@@ -7,9 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class LoginScren extends StatelessWidget {
-  const LoginScren({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+  TextEditingController firstNameTextEditingController =
+      TextEditingController();
+  TextEditingController lastNameTextEditingController = TextEditingController();
+  TextEditingController emailTextEditingController = TextEditingController();
+  TextEditingController passwardTextEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -27,7 +37,7 @@ class LoginScren extends StatelessWidget {
                     image: const AssetImage('assets/images/longicon.png')),
               ),
               ReuseText(
-                text: 'Log into your Calendly for free',
+                text: 'Signup your Calendly for free',
                 color: Colors.black.withOpacity(0.7),
                 fontWeight: FontWeight.bold,
                 size: 16,
@@ -66,7 +76,9 @@ class LoginScren extends StatelessWidget {
                         ),
                         SizedBox(
                             height: 35.3.h,
-                            child: const ReuseTextFormField(
+                            child: ReuseTextFormField(
+                              textEditingController:
+                                  firstNameTextEditingController,
                               hintText: 'Firstname',
                             )),
                         SizedBox(
@@ -74,7 +86,9 @@ class LoginScren extends StatelessWidget {
                         ),
                         SizedBox(
                             height: 35.3.h,
-                            child: const ReuseTextFormField(
+                            child: ReuseTextFormField(
+                              textEditingController:
+                                  lastNameTextEditingController,
                               hintText: 'lastname',
                             )),
                         SizedBox(
@@ -82,7 +96,8 @@ class LoginScren extends StatelessWidget {
                         ),
                         SizedBox(
                             height: 35.3.h,
-                            child: const ReuseTextFormField(
+                            child: ReuseTextFormField(
+                              textEditingController: emailTextEditingController,
                               hintText: 'Email',
                             )),
                         SizedBox(
@@ -90,7 +105,9 @@ class LoginScren extends StatelessWidget {
                         ),
                         SizedBox(
                             height: 35.3.h,
-                            child: const ReuseTextFormField(
+                            child: ReuseTextFormField(
+                              textEditingController:
+                                  passwardTextEditingController,
                               hintText: 'passward',
                             )),
                         SizedBox(
@@ -103,7 +120,7 @@ class LoginScren extends StatelessWidget {
                           child: const ReuseButton(
                               buttonheight: 39.29,
                               widget: ReuseText(
-                                text: 'Continue',
+                                text: 'Get Started',
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               )),
@@ -134,30 +151,30 @@ class LoginScren extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        ReuseButton(
-                            buttonheight: 40,
-                            buttoncolor: Colors.white,
-                            bordercolor: const Color(0xff757575),
-                            widget: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset('assets/images/google.png'),
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                const ReuseText(
-                                  text: 'Log in with Google',
-                                  color: Color(0xff757575),
-                                  size: 12,
-                                )
-                              ],
-                            )),
-                        SizedBox(
-                          height: 20.h,
-                        ),
+                        // SizedBox(
+                        //   height: 20.h,
+                        // ),
+                        // ReuseButton(
+                        //     buttonheight: 40,
+                        //     buttoncolor: Colors.white,
+                        //     bordercolor: const Color(0xff757575),
+                        //     widget: Row(
+                        //       mainAxisAlignment: MainAxisAlignment.center,
+                        //       children: [
+                        //         Image.asset('assets/images/google.png'),
+                        //         SizedBox(
+                        //           width: 10.w,
+                        //         ),
+                        //         const ReuseText(
+                        //           text: 'Log in with Google',
+                        //           color: Color(0xff757575),
+                        //           size: 12,
+                        //         )
+                        //       ],
+                        //     )),
+                        // SizedBox(
+                        //   height: 20.h,
+                        // ),
                         // ReuseButton(
                         //     buttonheight: 40,
                         //     buttoncolor: Colors.white,
@@ -182,7 +199,7 @@ class LoginScren extends StatelessWidget {
                         Row(
                           children: [
                             const ReuseText(
-                              text: 'Don’t have an account?',
+                              text: 'Already have an account?',
                               color: Color(0xff757575),
                               size: 10,
                             ),
@@ -191,10 +208,10 @@ class LoginScren extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Get.to(const SignUpScreen());
+                                Get.to(const LoginScreen());
                               },
                               child: const ReuseText(
-                                text: 'Sign up',
+                                text: 'Login',
                                 size: 10,
                               ),
                             ),

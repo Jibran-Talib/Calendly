@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -168,7 +168,7 @@ class SignUpScreen extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Get.to(const LoginScren());
+                                Get.to(const SignupScreen());
                               },
                               child: const ReuseText(
                                 text: 'Sign up',
