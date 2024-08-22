@@ -27,7 +27,7 @@ class LoginScreen extends StatelessWidget {
                     image: const AssetImage('assets/images/longicon.png')),
               ),
               ReuseText(
-                text: 'Sign up with Calendly for free',
+                text: 'Login with Calendly for free',
                 color: Colors.black.withOpacity(0.7),
                 fontWeight: FontWeight.bold,
                 size: 16,
@@ -56,7 +56,7 @@ class LoginScreen extends StatelessWidget {
                           height: 10,
                         ),
                         ReuseText(
-                          text: 'Enter your email to get started.',
+                          text: 'Enter your email for login',
                           size: 13,
                           color: Colors.black.withOpacity(0.7),
                           fontWeight: FontWeight.bold,
@@ -76,7 +76,7 @@ class LoginScreen extends StatelessWidget {
                           child: const ReuseButton(
                               buttonheight: 39.29,
                               widget: ReuseText(
-                                text: 'Get Started',
+                                text: 'Continues',
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               )),
@@ -122,7 +122,7 @@ class LoginScreen extends StatelessWidget {
                                   width: 10.w,
                                 ),
                                 const ReuseText(
-                                  text: 'Sign up with Google',
+                                  text: 'Login with Google',
                                   color: Color(0xff757575),
                                   size: 12,
                                 )
@@ -147,7 +147,7 @@ class LoginScreen extends StatelessWidget {
                                   width: 10.w,
                                 ),
                                 const ReuseText(
-                                  text: 'Sign up with Microsoft',
+                                  text: 'Login with Microsoft',
                                   color: Color(0xff757575),
                                   size: 12,
                                 )
@@ -159,7 +159,7 @@ class LoginScreen extends StatelessWidget {
                         Row(
                           children: [
                             const ReuseText(
-                              text: 'Already have an account?',
+                              text: 'Don’t have an account?',
                               color: Color(0xff757575),
                               size: 10,
                             ),
@@ -171,7 +171,7 @@ class LoginScreen extends StatelessWidget {
                                 Get.to(const SignupScreen());
                               },
                               child: const ReuseText(
-                                text: 'Sign up',
+                                text: 'Signup',
                                 size: 10,
                               ),
                             ),

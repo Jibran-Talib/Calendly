@@ -37,7 +37,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     image: const AssetImage('assets/images/longicon.png')),
               ),
               ReuseText(
-                text: 'Signup your Calendly for free',
+                text: 'Signup with Calendly for free',
                 color: Colors.black.withOpacity(0.7),
                 fontWeight: FontWeight.bold,
                 size: 16,
