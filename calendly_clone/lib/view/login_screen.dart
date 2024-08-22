@@ -65,7 +65,34 @@ class LoginScren extends StatelessWidget {
                           height: 10.h,
                         ),
                         SizedBox(
-                            height: 35.3.h, child: const ReuseTextFormField()),
+                            height: 35.3.h,
+                            child: const ReuseTextFormField(
+                              hintText: 'Firstname',
+                            )),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        SizedBox(
+                            height: 35.3.h,
+                            child: const ReuseTextFormField(
+                              hintText: 'lastname',
+                            )),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        SizedBox(
+                            height: 35.3.h,
+                            child: const ReuseTextFormField(
+                              hintText: 'Email',
+                            )),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        SizedBox(
+                            height: 35.3.h,
+                            child: const ReuseTextFormField(
+                              hintText: 'passward',
+                            )),
                         SizedBox(
                           height: 20.h,
                         ),
@@ -131,24 +158,24 @@ class LoginScren extends StatelessWidget {
                         SizedBox(
                           height: 20.h,
                         ),
-                        ReuseButton(
-                            buttonheight: 40,
-                            buttoncolor: Colors.white,
-                            bordercolor: const Color(0xff757575),
-                            widget: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset('assets/images/microsoft.png'),
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                const ReuseText(
-                                  text: 'Log in with Microsoft ',
-                                  color: Color(0xff757575),
-                                  size: 12,
-                                )
-                              ],
-                            )),
+                        // ReuseButton(
+                        //     buttonheight: 40,
+                        //     buttoncolor: Colors.white,
+                        //     bordercolor: const Color(0xff757575),
+                        //     widget: Row(
+                        //       mainAxisAlignment: MainAxisAlignment.center,
+                        //       children: [
+                        //         Image.asset('assets/images/microsoft.png'),
+                        //         SizedBox(
+                        //           width: 10.w,
+                        //         ),
+                        //         const ReuseText(
+                        //           text: 'Log in with Microsoft ',
+                        //           color: Color(0xff757575),
+                        //           size: 12,
+                        //         )
+                        //       ],
+                        //     )),
                         SizedBox(
                           height: 20.h,
                         ),

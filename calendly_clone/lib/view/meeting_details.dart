@@ -114,31 +114,29 @@ class _MeetingDetailsState extends State<MeetingDetails> {
                   padding: EdgeInsets.symmetric(horizontal: 11.w),
                   child: DropdownButtonHideUnderline(
                     child: Obx(
-                      () => Expanded(
-                        child: DropdownButton(
-                          isExpanded: true,
-                          iconEnabledColor: const Color(0xff356eff),
-                          value: controller
+                      () => DropdownButton(
+                        isExpanded: true,
+                        iconEnabledColor: const Color(0xff356eff),
+                        value: controller
+                            .dropDownButtonMintsValueforMeetingdetailScreen
+                            .value
+                            .toString(),
+                        icon: const Icon(Icons.keyboard_arrow_down_outlined),
+                        items: controller.dropDownButtonMints
+                            .map<DropdownMenuItem<String>>((e) {
+                          return DropdownMenuItem<String>(
+                              value: e.toString(),
+                              child: ReuseText(
+                                text: e.toString(),
+                                size: 10,
+                                color: Colors.black,
+                              ));
+                        }).toList(),
+                        onChanged: (value) {
+                          controller
                               .dropDownButtonMintsValueforMeetingdetailScreen
-                              .value
-                              .toString(),
-                          icon: const Icon(Icons.keyboard_arrow_down_outlined),
-                          items: controller.dropDownButtonMints
-                              .map<DropdownMenuItem<String>>((e) {
-                            return DropdownMenuItem<String>(
-                                value: e.toString(),
-                                child: ReuseText(
-                                  text: e.toString(),
-                                  size: 10,
-                                  color: Colors.black,
-                                ));
-                          }).toList(),
-                          onChanged: (value) {
-                            controller
-                                .dropDownButtonMintsValueforMeetingdetailScreen
-                                .value = value.toString();
-                          },
-                        ),
+                              .value = value.toString();
+                        },
                       ),
                     ),
                   ),
@@ -178,38 +176,35 @@ class _MeetingDetailsState extends State<MeetingDetails> {
                                     borderRadius: BorderRadius.circular(5.r),
                                     border: Border.all(
                                         color: const Color(0xff757575))),
-                                child: Expanded(
-                                  child: DropdownButtonHideUnderline(
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 11.w),
-                                      child: DropdownButton(
-                                          iconEnabledColor:
-                                              const Color(0xff356eff),
-                                          icon: const Icon(Icons
-                                              .keyboard_arrow_down_outlined),
-                                          value: controller
+                                child: DropdownButtonHideUnderline(
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 11.w),
+                                    child: DropdownButton(
+                                        iconEnabledColor:
+                                            const Color(0xff356eff),
+                                        icon: const Icon(
+                                            Icons.keyboard_arrow_down_outlined),
+                                        value: controller
+                                            .dropDownButtonMintsHourValueForMeetingDetailsScreen
+                                            .value
+                                            .toString(),
+                                        items: controller
+                                            .dropDownButtonMintsHour
+                                            .map<DropdownMenuItem<String>>((e) {
+                                          return DropdownMenuItem<String>(
+                                              value: e.toString(),
+                                              child: ReuseText(
+                                                text: e.toString(),
+                                                size: 10,
+                                                color: Colors.black,
+                                              ));
+                                        }).toList(),
+                                        onChanged: (value) {
+                                          controller
                                               .dropDownButtonMintsHourValueForMeetingDetailsScreen
-                                              .value
-                                              .toString(),
-                                          items: controller
-                                              .dropDownButtonMintsHour
-                                              .map<DropdownMenuItem<String>>(
-                                                  (e) {
-                                            return DropdownMenuItem<String>(
-                                                value: e.toString(),
-                                                child: ReuseText(
-                                                  text: e.toString(),
-                                                  size: 10,
-                                                  color: Colors.black,
-                                                ));
-                                          }).toList(),
-                                          onChanged: (value) {
-                                            controller
-                                                .dropDownButtonMintsHourValueForMeetingDetailsScreen
-                                                .value = value.toString();
-                                          }),
-                                    ),
+                                              .value = value.toString();
+                                        }),
                                   ),
                                 ),
                               )

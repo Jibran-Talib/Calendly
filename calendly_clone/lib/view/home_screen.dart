@@ -4,7 +4,6 @@ import 'package:calendly_clone/utils/reuseable_text.dart';
 import 'package:calendly_clone/utils/reuseable_textformField.dart';
 import 'package:calendly_clone/utils/tab_bar_index.dart';
 import 'package:calendly_clone/view/create_event_screen.dart';
-import 'package:calendly_clone/view/meeting_details.dart';
 import 'package:calendly_clone/view/one_off_meeting.dart';
 import 'package:calendly_clone/view/setting_screen.dart';
 import 'package:flutter/material.dart';

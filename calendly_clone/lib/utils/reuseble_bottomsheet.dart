@@ -19,7 +19,6 @@ class _ReuseBottomSheetState extends State<ReuseBottomSheet> {
   TextEditingController countryCodeTextEdiditionController =
       TextEditingController();
 
-  BottomSheetController controller = Get.put(BottomSheetController());
   TextEditingController textEditingController = TextEditingController();
 
   List<Map<String, dynamic>> newEventBottomSheet = [

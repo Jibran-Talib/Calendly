@@ -29,6 +29,7 @@ class Controller extends GetxController {
     '60 min',
     'Custum',
   ].obs;
+
   RxString dropDownButtonMintsValue = '30 min'.obs;
   RxString dropDownButtonMintsValueforMeetingdetailScreen = '30 min'.obs;
 
@@ -36,6 +37,7 @@ class Controller extends GetxController {
     'min',
     'hrs',
   ].obs;
+
   RxString dropDownButtonMintsHourValue = 'min'.obs;
   RxString dropDownButtonMintsHourValueForMeetingDetailsScreen = 'min'.obs;
 }
