@@ -2,24 +2,14 @@ import 'package:calendly_clone/utils/reuseable_button.dart';
 import 'package:calendly_clone/utils/reuseable_text.dart';
 import 'package:calendly_clone/utils/reuseable_textformField.dart';
 import 'package:calendly_clone/view/home_screen.dart';
-import 'package:calendly_clone/view/signup_screen.dart';
+import 'package:calendly_clone/view/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
 
-  @override
-  State<SignupScreen> createState() => _SignupScreenState();
-}
-
-class _SignupScreenState extends State<SignupScreen> {
-  TextEditingController firstNameTextEditingController =
-      TextEditingController();
-  TextEditingController lastNameTextEditingController = TextEditingController();
-  TextEditingController emailTextEditingController = TextEditingController();
-  TextEditingController passwardTextEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -37,7 +27,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     image: const AssetImage('assets/images/longicon.png')),
               ),
               ReuseText(
-                text: 'Signup with Calendly for free',
+                text: 'Login with Calendly for free',
                 color: Colors.black.withOpacity(0.7),
                 fontWeight: FontWeight.bold,
                 size: 16,
@@ -66,7 +56,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           height: 10,
                         ),
                         ReuseText(
-                          text: 'Enter your email to get started.',
+                          text: 'Enter your email for login',
                           size: 13,
                           color: Colors.black.withOpacity(0.7),
                           fontWeight: FontWeight.bold,
@@ -75,41 +65,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           height: 10.h,
                         ),
                         SizedBox(
-                            height: 35.3.h,
-                            child: ReuseTextFormField(
-                              textEditingController:
-                                  firstNameTextEditingController,
-                              hintText: 'Firstname',
-                            )),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        SizedBox(
-                            height: 35.3.h,
-                            child: ReuseTextFormField(
-                              textEditingController:
-                                  lastNameTextEditingController,
-                              hintText: 'lastname',
-                            )),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        SizedBox(
-                            height: 35.3.h,
-                            child: ReuseTextFormField(
-                              textEditingController: emailTextEditingController,
-                              hintText: 'Email',
-                            )),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        SizedBox(
-                            height: 35.3.h,
-                            child: ReuseTextFormField(
-                              textEditingController:
-                                  passwardTextEditingController,
-                              hintText: 'passward',
-                            )),
+                            height: 35.3.h, child: const ReuseTextFormField()),
                         SizedBox(
                           height: 20.h,
                         ),
@@ -120,7 +76,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           child: const ReuseButton(
                               buttonheight: 39.29,
                               widget: ReuseText(
-                                text: 'Get Started',
+                                text: 'Continues',
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               )),
@@ -151,55 +107,59 @@ class _SignupScreenState extends State<SignupScreen> {
                             ),
                           ],
                         ),
-                        // SizedBox(
-                        //   height: 20.h,
-                        // ),
-                        // ReuseButton(
-                        //     buttonheight: 40,
-                        //     buttoncolor: Colors.white,
-                        //     bordercolor: const Color(0xff757575),
-                        //     widget: Row(
-                        //       mainAxisAlignment: MainAxisAlignment.center,
-                        //       children: [
-                        //         Image.asset('assets/images/google.png'),
-                        //         SizedBox(
-                        //           width: 10.w,
-                        //         ),
-                        //         const ReuseText(
-                        //           text: 'Log in with Google',
-                        //           color: Color(0xff757575),
-                        //           size: 12,
-                        //         )
-                        //       ],
-                        //     )),
-                        // SizedBox(
-                        //   height: 20.h,
-                        // ),
-                        // ReuseButton(
-                        //     buttonheight: 40,
-                        //     buttoncolor: Colors.white,
-                        //     bordercolor: const Color(0xff757575),
-                        //     widget: Row(
-                        //       mainAxisAlignment: MainAxisAlignment.center,
-                        //       children: [
-                        //         Image.asset('assets/images/microsoft.png'),
-                        //         SizedBox(
-                        //           width: 10.w,
-                        //         ),
-                        //         const ReuseText(
-                        //           text: 'Log in with Microsoft ',
-                        //           color: Color(0xff757575),
-                        //           size: 12,
-                        //         )
-                        //       ],
-                        //     )),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        ReuseButton(
+                            buttonheight: 40,
+                            buttoncolor: Colors.white,
+                            bordercolor: const Color(0xff757575),
+                            widget: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset('assets/images/google.png'),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                const ReuseText(
+                                  text: 'Login with Google',
+                                  color: Color(0xff757575),
+                                  size: 12,
+                                )
+                              ],
+                            )),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        ReuseButton(
+                            buttonheight: 40,
+                            buttoncolor: Colors.white,
+                            bordercolor: const Color(0xff757575),
+                            widget: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  'assets/images/microsoft.png',
+                                  height: 25.h,
+                                  width: 25.w,
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                const ReuseText(
+                                  text: 'Login with Microsoft',
+                                  color: Color(0xff757575),
+                                  size: 12,
+                                )
+                              ],
+                            )),
                         SizedBox(
                           height: 20.h,
                         ),
                         Row(
                           children: [
                             const ReuseText(
-                              text: 'Already have an account?',
+                              text: 'Don’t have an account?',
                               color: Color(0xff757575),
                               size: 10,
                             ),
@@ -208,10 +168,10 @@ class _SignupScreenState extends State<SignupScreen> {
                             ),
                             InkWell(
                               onTap: () {
-                                Get.to(const LoginScreen());
+                                Get.to(const SignupScreen());
                               },
                               child: const ReuseText(
-                                text: 'Login',
+                                text: 'Signup',
                                 size: 10,
                               ),
                             ),
