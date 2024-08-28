@@ -1,11 +1,12 @@
 import 'package:calendly_clone/controller/get_controller.dart';
 import 'package:calendly_clone/utils/reuseable_button.dart';
-import 'package:calendly_clone/utils/reuseable_text.dart';
-import 'package:calendly_clone/utils/reuseable_textformField.dart';
-import 'package:calendly_clone/utils/reuseable_zoom_container.dart';
-import 'package:calendly_clone/utils/reuseble_bottomsheet.dart';
+
 import 'package:calendly_clone/view/event_preview_screen.dart';
 import 'package:calendly_clone/view/home_screen.dart';
+import 'package:calendly_clone/widgets/reuseable_text.dart';
+import 'package:calendly_clone/widgets/reuseable_textformField.dart';
+import 'package:calendly_clone/widgets/reuseable_zoom_container.dart';
+import 'package:calendly_clone/widgets/reuseble_bottomsheet.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';

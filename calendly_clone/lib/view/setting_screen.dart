@@ -1,8 +1,8 @@
-import 'package:calendly_clone/utils/reuseable_row.dart';
-import 'package:calendly_clone/utils/reuseable_text.dart';
 import 'package:calendly_clone/view/default_screen.dart';
 import 'package:calendly_clone/view/lab_screen.dart';
 import 'package:calendly_clone/view/notification_screen.dart';
+import 'package:calendly_clone/widgets/reuseable_row.dart';
+import 'package:calendly_clone/widgets/reuseable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

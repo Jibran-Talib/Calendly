@@ -1,9 +1,10 @@
 import 'package:calendar_view/calendar_view.dart';
 
 import 'package:calendly_clone/utils/reuseable_button.dart';
-import 'package:calendly_clone/utils/reuseable_text.dart';
+
 import 'package:calendly_clone/utils/tab_bar_index.dart';
 import 'package:calendly_clone/view/meeting_details.dart';
+import 'package:calendly_clone/widgets/reuseable_text.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';

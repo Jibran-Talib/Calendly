@@ -1,7 +1,8 @@
 import 'package:calendly_clone/controller/get_controller.dart';
-import 'package:calendly_clone/utils/reuseable_text.dart';
-import 'package:calendly_clone/utils/reuseable_textformField.dart';
+
 import 'package:calendly_clone/utils/timezone_list.dart';
+import 'package:calendly_clone/widgets/reuseable_text.dart';
+import 'package:calendly_clone/widgets/reuseable_textformField.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

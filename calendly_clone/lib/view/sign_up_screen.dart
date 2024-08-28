@@ -2,11 +2,13 @@ import 'dart:convert';
 
 import 'package:calendly_clone/utils/api%20services/api_urls.dart';
 import 'package:calendly_clone/utils/reuseable_button.dart';
-import 'package:calendly_clone/utils/reuseable_text.dart';
-import 'package:calendly_clone/utils/reuseable_textformField.dart';
-import 'package:calendly_clone/view/home_screen.dart';
+
 import 'package:calendly_clone/view/login_screen.dart';
+import 'package:calendly_clone/widgets/reuse_progress_indicater.dart';
+import 'package:calendly_clone/widgets/reuseable_text.dart';
+import 'package:calendly_clone/widgets/reuseable_textformField.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -19,34 +21,54 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  bool loading = false;
+  final GlobalKey<FormState> _formKey = GlobalKey();
+
   TextEditingController firstNameTextEditingController =
       TextEditingController();
   TextEditingController lastNameTextEditingController = TextEditingController();
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwardTextEditingController = TextEditingController();
 
-  Future<void> _signUpfunc(String firstName, lastName, email, passward) async {
+  Future<void> _signUpfunc(
+      String firstName, String lastName, String email, String password) async {
+    setState(() {
+      loading = true;
+    });
+
     try {
       var body = jsonEncode({
         'firstname': firstName,
         'lastname': lastName,
         'email': email,
-        'password': passward,
+        'password': password,
         'active': 1,
       });
 
-      var response =
-          await http.post(Uri.parse(ApiUrls.creteAccountUrl), body: body);
+      var response = await http.post(
+        Uri.parse(ApiUrls.creteAccountUrl),
+        headers: {'Content-Type': 'application/json'},
+        body: body,
+      );
 
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-        print('Data sucessfuly received $data');
+      if (response.statusCode == 201) {
+        print('User created successfully!');
+
+        Get.showSnackbar(const GetSnackBar(
+          title: 'successfully',
+          message: ' User created successfully!',
+          duration: Duration(seconds: 2),
+        ));
+      } else {
         print('Sign-up failed. Status code: ${response.statusCode}');
         print('Error: ${response.body}');
       }
     } catch (e) {
-      print('catch eroor : $e');
+      print('Error: $e');
     }
+    setState(() {
+      loading = false;
+    });
   }
 
   @override
@@ -79,7 +101,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 shadowColor: Colors.grey.shade100,
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
-                  height: 396.h,
+                  height: 420.h,
                   width: 326.w,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -103,6 +125,11 @@ class _SignupScreenState extends State<SignupScreen> {
                         SizedBox(
                           height: 10.h,
                         ),
+                        Form(
+                            key: _formKey,
+                            child: const Column(
+                              children: [],
+                            )),
                         SizedBox(
                             height: 35.3.h,
                             child: ReuseTextFormField(
@@ -126,6 +153,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         SizedBox(
                             height: 35.3.h,
                             child: ReuseTextFormField(
+                              keyboardType: TextInputType.emailAddress,
                               textEditingController: emailTextEditingController,
                               hintText: 'Email',
                             )),
@@ -144,19 +172,24 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                         InkWell(
                           onTap: () {
-                            _signUpfunc(
-                                firstNameTextEditingController.text,
-                                lastNameTextEditingController.text,
-                                emailTextEditingController.text,
-                                passwardTextEditingController.text);
+                            if (_formKey.currentState!.validate()) {
+                              _signUpfunc(
+                                  firstNameTextEditingController.text,
+                                  lastNameTextEditingController.text,
+                                  emailTextEditingController.text,
+                                  passwardTextEditingController.text);
+                            }
                           },
                           child: ReuseButton(
                               buttonheight: 39.29,
-                              widget: ReuseText(
-                                text: 'Get Started',
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              )),
+                              widget: loading
+                                  ? const Center(
+                                      child: ReuseProgressIndicater())
+                                  : const ReuseText(
+                                      text: 'Get Started',
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    )),
                         ),
                         SizedBox(
                           height: 30.h,

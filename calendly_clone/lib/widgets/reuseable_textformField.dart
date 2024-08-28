@@ -1,3 +1,4 @@
+import 'package:calendly_clone/widgets/reuseable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -25,6 +26,7 @@ class ReuseTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: textEditingController,
+
       cursorColor: Colors.black.withOpacity(0.7),
       textAlign: TextAlign.start,
       keyboardType: keyboardType,
@@ -33,6 +35,11 @@ class ReuseTextFormField extends StatelessWidget {
         fontSize: 12.sp,
       ),
       decoration: InputDecoration(
+        label: ReuseText(
+          color: const Color(0xff757575),
+          text: hintText.toString(),
+          size: 10,
+        ),
         fillColor: Colors.white,
         filled: true,
         prefixIcon: prefixIcon,
@@ -41,7 +48,7 @@ class ReuseTextFormField extends StatelessWidget {
         ),
         hintStyle: const TextStyle(
             color: Color(0xff757575), fontWeight: FontWeight.normal),
-        hintText: hintText,
+        // hintText: hintText,
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: focusedBorderColor),
           borderRadius: BorderRadius.circular(borderRadius.r),
@@ -53,7 +60,7 @@ class ReuseTextFormField extends StatelessWidget {
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please enter some text';
+          return 'Please enter correct value';
         }
         return null;
       },
