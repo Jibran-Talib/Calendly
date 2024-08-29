@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:calendly_clone/utils/api%20services/api_urls.dart';
 import 'package:calendly_clone/view/home_screen.dart';
 import 'package:calendly_clone/view/sign_up_screen.dart';
 import 'package:calendly_clone/widgets/reuseable_button.dart';
@@ -6,10 +9,24 @@ import 'package:calendly_clone/widgets/reuseable_textformField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+  bool passwardHide = false;
+
+  final _formkey = GlobalKey<FormState>();
+
+  TextEditingController emailTextEditingController = TextEditingController();
+  TextEditingController passwardTextEditingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -40,7 +57,6 @@ class LoginScreen extends StatelessWidget {
                 shadowColor: Colors.grey.shade100,
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
-                  height: 396.h,
                   width: 326.w,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -64,13 +80,59 @@ class LoginScreen extends StatelessWidget {
                         SizedBox(
                           height: 10.h,
                         ),
-                        SizedBox(height: 35.3.h, child: ReuseTextFormField()),
+                        Form(
+                            key: _formkey,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                    height: 35.3.h,
+                                    child: ReuseTextFormField(
+                                      textEditingController:
+                                          emailTextEditingController,
+                                      hintText: 'Email',
+                                    )),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                SizedBox(
+                                    height: 35.3.h,
+                                    child: ReuseTextFormField(
+                                      passwardVisible: !passwardHide,
+                                      suffixIcon: passwardHide
+                                          ? IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  passwardHide = !passwardHide;
+                                                });
+                                              },
+                                              icon: const Icon(
+                                                  Icons.remove_red_eye),
+                                            )
+                                          : IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  passwardHide = !passwardHide;
+                                                });
+                                              },
+                                              icon: const Icon(
+                                                  Icons.visibility_off),
+                                            ),
+                                      textEditingController:
+                                          passwardTextEditingController,
+                                      hintText: 'passward',
+                                    )),
+                              ],
+                            )),
                         SizedBox(
                           height: 20.h,
                         ),
                         InkWell(
                           onTap: () {
-                            Get.to(const HomeScreen());
+                            if (_formkey.currentState!.validate()) {
+                              _postfunc(emailTextEditingController.text,
+                                  passwardTextEditingController.text);
+                              Get.to(const HomeScreen());
+                            }
                           },
                           child: const ReuseButton(
                               buttonheight: 39.29,
@@ -186,5 +248,23 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _postfunc(String email, passward) async {
+    var body = jsonEncode({
+      'email': email,
+      'password': passward,
+    });
+
+    var response = await http.post(Uri.parse(ApiUrls.loginAccountUrl),
+        headers: {'Content-Type': 'application/json'}, body: body);
+
+    if (response.statusCode == 200) {
+      print('suceffuly login');
+      var data = jsonDecode(response.body);
+      print('respose data : $data');
+    } else {
+      print('Error and response statecode : ${response.statusCode}');
+    }
   }
 }

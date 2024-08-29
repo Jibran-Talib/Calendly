@@ -56,7 +56,7 @@ class _SignupScreenState extends State<SignupScreen> {
         print('User created successfully!');
 
         ReuseSnakbar().snakbar('Successfully created ');
-        // Get.to(() => const LoginScreen());
+        Get.to(() => const LoginScreen());
       } else {
         print('Sign-up failed. Status code: ${response.statusCode}');
         print('Error: ${response.body}');
@@ -160,23 +160,25 @@ class _SignupScreenState extends State<SignupScreen> {
                                 SizedBox(
                                     height: 35.3.h,
                                     child: ReuseTextFormField(
+                                      passwardVisible: !passwardHide,
                                       suffixIcon: passwardHide
-                                          ? InkWell(
-                                              onTap: () {
+                                          ? IconButton(
+                                              onPressed: () {
                                                 setState(() {
-                                                  passwardHide = true;
+                                                  passwardHide = !passwardHide;
                                                 });
                                               },
-                                              child: InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      passwardHide = false;
-                                                    });
-                                                  },
-                                                  child: const Icon(
-                                                      Icons.remove_red_eye)))
-                                          : const Icon(
-                                              Icons.visibility_off,
+                                              icon: const Icon(
+                                                  Icons.remove_red_eye),
+                                            )
+                                          : IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  passwardHide = !passwardHide;
+                                                });
+                                              },
+                                              icon: const Icon(
+                                                  Icons.visibility_off),
                                             ),
                                       textEditingController:
                                           passwardTextEditingController,

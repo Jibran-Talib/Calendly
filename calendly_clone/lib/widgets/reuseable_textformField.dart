@@ -6,31 +6,36 @@ class ReuseTextFormField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
 
-  final String? hintText;
+  final String hintText;
   final Color focusedBorderColor;
   final Color enabledBorderColor;
   final TextInputType? keyboardType;
   final double? height;
+  final bool passwardVisible;
+
   final TextEditingController? textEditingController;
 
   final double borderRadius;
 
-  const ReuseTextFormField(
-      {super.key,
-      this.prefixIcon,
-      this.hintText,
-      this.focusedBorderColor = const Color(0xff0047ff),
-      this.enabledBorderColor = const Color(0xff0047ff),
-      this.borderRadius = 8,
-      this.keyboardType,
-      this.textEditingController,
-      this.height = 35.3,
-      this.suffixIcon});
+  const ReuseTextFormField({
+    super.key,
+    this.prefixIcon,
+    this.hintText = '',
+    this.focusedBorderColor = const Color(0xff0047ff),
+    this.enabledBorderColor = const Color(0xff0047ff),
+    this.borderRadius = 8,
+    this.keyboardType,
+    this.textEditingController,
+    this.height = 35.3,
+    this.suffixIcon,
+    this.passwardVisible = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: textEditingController,
+      obscureText: passwardVisible,
 
       cursorColor: Colors.black.withOpacity(0.7),
       textAlign: TextAlign.start,
@@ -50,6 +55,7 @@ class ReuseTextFormField extends StatelessWidget {
         filled: true,
 
         prefixIcon: prefixIcon,
+
         constraints: BoxConstraints.expand(
           height: height!.h,
         ),
