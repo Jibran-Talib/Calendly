@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 import 'package:calendly_clone/utils/api%20services/api_urls.dart';
-import 'package:calendly_clone/utils/reuseable_button.dart';
 
 import 'package:calendly_clone/view/login_screen.dart';
 import 'package:calendly_clone/widgets/reuse_progress_indicater.dart';
+import 'package:calendly_clone/widgets/reuse_snakbar.dart';
+import 'package:calendly_clone/widgets/reuseable_button.dart';
 import 'package:calendly_clone/widgets/reuseable_text.dart';
 import 'package:calendly_clone/widgets/reuseable_textformField.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -22,8 +22,9 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   bool loading = false;
-  final GlobalKey<FormState> _formKey = GlobalKey();
+  bool passwardHide = false;
 
+  final _formKey = GlobalKey<FormState>();
   TextEditingController firstNameTextEditingController =
       TextEditingController();
   TextEditingController lastNameTextEditingController = TextEditingController();
@@ -54,11 +55,8 @@ class _SignupScreenState extends State<SignupScreen> {
       if (response.statusCode == 201) {
         print('User created successfully!');
 
-        Get.showSnackbar(const GetSnackBar(
-          title: 'successfully',
-          message: ' User created successfully!',
-          duration: Duration(seconds: 2),
-        ));
+        ReuseSnakbar().snakbar('Successfully created ');
+        // Get.to(() => const LoginScreen());
       } else {
         print('Sign-up failed. Status code: ${response.statusCode}');
         print('Error: ${response.body}');
@@ -101,7 +99,6 @@ class _SignupScreenState extends State<SignupScreen> {
                 shadowColor: Colors.grey.shade100,
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
-                  height: 420.h,
                   width: 326.w,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -127,46 +124,67 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                         Form(
                             key: _formKey,
-                            child: const Column(
-                              children: [],
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                    // height: 35.3.h,
+                                    child: ReuseTextFormField(
+                                  textEditingController:
+                                      firstNameTextEditingController,
+                                  hintText: 'Firstname',
+                                )),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                SizedBox(
+                                    height: 35.3.h,
+                                    child: ReuseTextFormField(
+                                      textEditingController:
+                                          lastNameTextEditingController,
+                                      hintText: 'lastname',
+                                    )),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                SizedBox(
+                                    height: 35.3.h,
+                                    child: ReuseTextFormField(
+                                      keyboardType: TextInputType.emailAddress,
+                                      textEditingController:
+                                          emailTextEditingController,
+                                      hintText: 'Email',
+                                    )),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                SizedBox(
+                                    height: 35.3.h,
+                                    child: ReuseTextFormField(
+                                      suffixIcon: passwardHide
+                                          ? InkWell(
+                                              onTap: () {
+                                                setState(() {
+                                                  passwardHide = true;
+                                                });
+                                              },
+                                              child: InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      passwardHide = false;
+                                                    });
+                                                  },
+                                                  child: const Icon(
+                                                      Icons.remove_red_eye)))
+                                          : const Icon(
+                                              Icons.visibility_off,
+                                            ),
+                                      textEditingController:
+                                          passwardTextEditingController,
+                                      hintText: 'passward',
+                                    )),
+                              ],
                             )),
-                        SizedBox(
-                            height: 35.3.h,
-                            child: ReuseTextFormField(
-                              textEditingController:
-                                  firstNameTextEditingController,
-                              hintText: 'Firstname',
-                            )),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        SizedBox(
-                            height: 35.3.h,
-                            child: ReuseTextFormField(
-                              textEditingController:
-                                  lastNameTextEditingController,
-                              hintText: 'lastname',
-                            )),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        SizedBox(
-                            height: 35.3.h,
-                            child: ReuseTextFormField(
-                              keyboardType: TextInputType.emailAddress,
-                              textEditingController: emailTextEditingController,
-                              hintText: 'Email',
-                            )),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        SizedBox(
-                            height: 35.3.h,
-                            child: ReuseTextFormField(
-                              textEditingController:
-                                  passwardTextEditingController,
-                              hintText: 'passward',
-                            )),
+
                         SizedBox(
                           height: 20.h,
                         ),

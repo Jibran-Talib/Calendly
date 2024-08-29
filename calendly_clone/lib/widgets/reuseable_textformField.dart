@@ -4,10 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReuseTextFormField extends StatelessWidget {
   final Widget? prefixIcon;
+  final Widget? suffixIcon;
+
   final String? hintText;
   final Color focusedBorderColor;
   final Color enabledBorderColor;
   final TextInputType? keyboardType;
+  final double? height;
   final TextEditingController? textEditingController;
 
   final double borderRadius;
@@ -20,7 +23,9 @@ class ReuseTextFormField extends StatelessWidget {
       this.enabledBorderColor = const Color(0xff0047ff),
       this.borderRadius = 8,
       this.keyboardType,
-      this.textEditingController});
+      this.textEditingController,
+      this.height = 35.3,
+      this.suffixIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +40,7 @@ class ReuseTextFormField extends StatelessWidget {
         fontSize: 12.sp,
       ),
       decoration: InputDecoration(
+        suffixIcon: suffixIcon,
         label: ReuseText(
           color: const Color(0xff757575),
           text: hintText.toString(),
@@ -42,25 +48,39 @@ class ReuseTextFormField extends StatelessWidget {
         ),
         fillColor: Colors.white,
         filled: true,
+
         prefixIcon: prefixIcon,
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 10.w,
+        constraints: BoxConstraints.expand(
+          height: height!.h,
         ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
         hintStyle: const TextStyle(
             color: Color(0xff757575), fontWeight: FontWeight.normal),
         // hintText: hintText,
+        border: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.red), // Error border color
+          borderRadius: BorderRadius.circular(borderRadius.r),
+        ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: focusedBorderColor),
           borderRadius: BorderRadius.circular(borderRadius.r),
+        ),
+        errorStyle: const TextStyle(
+          height: 0,
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: enabledBorderColor),
           borderRadius: BorderRadius.circular(borderRadius.r),
         ),
+        errorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.red), // Error border color
+          borderRadius: BorderRadius.circular(borderRadius.r),
+        ),
       ),
+
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please enter correct value';
+          return '';
         }
         return null;
       },

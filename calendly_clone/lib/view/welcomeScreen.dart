@@ -1,8 +1,8 @@
 import 'package:calendly_clone/controller/get_controller.dart';
-import 'package:calendly_clone/utils/reuseable_button.dart';
 
 import 'package:calendly_clone/view/sign_up_screen.dart';
 import 'package:calendly_clone/view/login_screen.dart';
+import 'package:calendly_clone/widgets/reuseable_button.dart';
 import 'package:calendly_clone/widgets/reuseable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

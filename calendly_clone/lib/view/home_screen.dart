@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
               )),
           title: SizedBox(
             height: 37.h,
-            child: const ReuseTextFormField(
+            child: ReuseTextFormField(
               prefixIcon: Icon(
                 Icons.search,
                 color: Color(0xff757575),

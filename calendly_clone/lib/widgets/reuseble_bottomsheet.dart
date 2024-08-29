@@ -1,6 +1,5 @@
-import 'package:calendly_clone/utils/reuseable_button.dart';
-
 import 'package:calendly_clone/view/create_event_screen.dart';
+import 'package:calendly_clone/widgets/reuseable_button.dart';
 import 'package:calendly_clone/widgets/reuseable_text.dart';
 import 'package:calendly_clone/widgets/reuseable_textformField.dart';
 import 'package:country_code_picker/country_code_picker.dart';
