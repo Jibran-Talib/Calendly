@@ -7,6 +7,7 @@ import 'package:calendly_clone/widgets/reuseable_listtile2.dart';
 import 'package:calendly_clone/widgets/reuseable_text.dart';
 import 'package:calendly_clone/widgets/reuseable_textformField.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -100,11 +101,10 @@ class _HomeScreenState extends State<HomeScreen> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Get.bottomSheet(Container(
-              height: 286.h,
               width: double.infinity,
               color: Colors.white,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20),
+                padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 20),
                 child: Column(
                   children: [
                     Row(
@@ -194,7 +194,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: InkWell(
                         onTap: () {
                           Get.bottomSheet(Container(
-                            height: 333.h,
                             width: double.infinity,
                             decoration: BoxDecoration(
                                 color: Colors.white,
