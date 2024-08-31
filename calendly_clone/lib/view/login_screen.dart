@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:calendly_clone/utils/api%20services/api_urls.dart';
+import 'package:calendly_clone/utils/api%20services/generate_auto_token.dart';
 import 'package:calendly_clone/view/home_screen.dart';
 import 'package:calendly_clone/view/sign_up_screen.dart';
 import 'package:calendly_clone/widgets/reuseable_button.dart';
@@ -20,7 +21,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
   bool passwardHide = false;
 
   final _formkey = GlobalKey<FormState>();
@@ -129,9 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         InkWell(
                           onTap: () {
                             if (_formkey.currentState!.validate()) {
-                              _postfunc(emailTextEditingController.text,
-                                  passwardTextEditingController.text);
-                              Get.to(const HomeScreen());
+                              GenerateAutoToken().getNewTokenFunc();
                             }
                           },
                           child: const ReuseButton(
@@ -251,6 +249,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _postfunc(String email, passward) async {
+    SharedPreferences prefes = await SharedPreferences.getInstance();
     var body = jsonEncode({
       'email': email,
       'password': passward,
@@ -263,6 +262,10 @@ class _LoginScreenState extends State<LoginScreen> {
       print('suceffuly login');
       var data = jsonDecode(response.body);
       print('respose data : $data');
+      await prefes.setString('oldToken', data['accessToken'].toString());
+      prefes.setString('email', emailTextEditingController.text);
+      prefes.setString('passward', passwardTextEditingController.text);
+      GenerateAutoToken().getNewTokenFunc();
     } else {
       print('Error and response statecode : ${response.statusCode}');
     }

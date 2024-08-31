@@ -52,17 +52,16 @@ class _SignupScreenState extends State<SignupScreen> {
         body: body,
       );
 
-      if (response.statusCode == 201) {
-        print('User created successfully!');
-
-        ReuseSnakbar().snakbar('Successfully created ');
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        ReuseSnakbar().snakbar('Successfully created');
         Get.to(() => const LoginScreen());
       } else {
+        ReuseSnakbar().snakbar(response.body);
         print('Sign-up failed. Status code: ${response.statusCode}');
         print('Error: ${response.body}');
       }
     } catch (e) {
-      print('Error: $e');
+      ReuseSnakbar().snakbar(e.toString());
     }
     setState(() {
       loading = false;
