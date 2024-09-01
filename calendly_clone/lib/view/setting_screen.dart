@@ -1,5 +1,6 @@
 import 'package:calendly_clone/view/default_screen.dart';
 import 'package:calendly_clone/view/lab_screen.dart';
+import 'package:calendly_clone/view/login_screen.dart';
 import 'package:calendly_clone/view/notification_screen.dart';
 import 'package:calendly_clone/widgets/reuseable_row.dart';
 import 'package:calendly_clone/widgets/reuseable_text.dart';
@@ -109,7 +110,11 @@ class SettingScreen extends StatelessWidget {
             ),
             const ReuseableRow(text: 'Help and support'),
             const ReuseableRow(text: 'Send feedback'),
-            const ReuseableRow(text: 'Logout'),
+            InkWell(
+                onTap: () {
+                  Get.to(() => const LoginScreen());
+                },
+                child: const ReuseableRow(text: 'Logout')),
             Container(
               width: double.infinity,
               height: 1.h,

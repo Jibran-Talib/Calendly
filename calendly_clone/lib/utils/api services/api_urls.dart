@@ -3,4 +3,5 @@ class ApiUrls {
   static String creteAccountUrl = '$baseUrl/users/create';
   static String loginAccountUrl = '$baseUrl/users/login';
   static String newTokenGeneraterUrl = '$baseUrl/users/list';
+  static String userListUrl = '$baseUrl/users/list';
 }
