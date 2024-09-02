@@ -137,6 +137,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 await SharedPreferences.getInstance();
                             await prefes.setString(
                                 'inputEmail', emailTextEditingController.text);
+                            await prefes.setString('inputPassward',
+                                emailTextEditingController.text);
                             if (_formkey.currentState!.validate()) {
                               GenerateAutoToken().getNewTokenFunc();
                             }

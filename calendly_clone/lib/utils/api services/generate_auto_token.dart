@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class GenerateAutoToken {
   void getNewTokenFunc() async {
+    print('Run getNewTokenFunc ');
     SharedPreferences prefes = await SharedPreferences.getInstance();
     String _token = prefes.getString('token') ?? 'empty';
     print('old Token: $_token');
@@ -17,27 +18,35 @@ class GenerateAutoToken {
       'Authorization': 'Bearer $_token',
       'Content-Type': 'application/json',
     });
+    print('reponse ');
     if (response.statusCode == 200) {
+      print('state code 200 state ');
       checkUserEmailValid(
           prefes.getString('email').toString(), prefes.getString('token'));
-
+      print('state code 200 end ');
       // Get.to(() => const HomeScreen());
     } else if (response.statusCode == 401) {
+      print('state code 401 start ');
+      print("email ${prefes.getString('email')}");
+
       var body2 = jsonEncode({
-        'email': prefes.getString('email'),
-        'password': prefes.getString('passward')
+        'email': prefes.getString('inputEmail'),
+        'password': prefes.getString('inputPassward')
       });
       var response2 = await http.post(Uri.parse(ApiUrls.loginAccountUrl),
           headers: {'Content-Type': 'application/json'}, body: body2);
       if (response2.statusCode == 200) {
+        print('state code 200 respone 2 start ');
         var data2 = jsonDecode(response2.body);
 
-        ReuseSnakbar().snakbar('Token Updated');
+        // ReuseSnakbar().snakbar('Token Updated');
         prefes.setString('token', data2['accessToken']);
         print('new Token: ${prefes.getString('token')}');
 
         checkUserEmailValid(
             prefes.getString('email').toString(), prefes.getString('token'));
+      } else {
+        print("response 2 status code ${response2.statusCode}");
       }
 
       // prefes.setString('key', data)
@@ -69,6 +78,13 @@ class GenerateAutoToken {
       }
       if (data[matchEmailIndex]['email'].toString().toLowerCase() ==
           prefes.getString('inputEmail')!.toLowerCase()) {
+        prefes.setString(
+            'firstname', data[matchEmailIndex]['firstname'].toString());
+        prefes.setString(
+            'lastname', data[matchEmailIndex]['lastname'].toString());
+        prefes.setString('email', data[matchEmailIndex]['email'].toString());
+        prefes.setString(
+            'password', data[matchEmailIndex]['password'].toString());
         Get.to(() => const HomeScreen());
         ReuseSnakbar().snakbar('sucessfully login');
       } else {

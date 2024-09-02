@@ -1,4 +1,5 @@
 import 'package:calendly_clone/view/default_screen.dart';
+import 'package:calendly_clone/view/edit_profile.dart';
 import 'package:calendly_clone/view/lab_screen.dart';
 import 'package:calendly_clone/view/login_screen.dart';
 import 'package:calendly_clone/view/notification_screen.dart';
@@ -47,19 +48,34 @@ class SettingScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const CircleAvatar(
-                    radius: 33,
-                    backgroundColor: Color(0xffdd91da),
-                    child: CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Color(0xffd9d9d9),
-                      child: ReuseText(
-                        text: 'J',
-                        size: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const CircleAvatar(
+                        radius: 33,
+                        backgroundColor: Color(0xffdd91da),
+                        child: CircleAvatar(
+                          radius: 30,
+                          backgroundColor: Color(0xffd9d9d9),
+                          child: ReuseText(
+                            text: 'J',
+                            size: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
                       ),
-                    ),
+                      const Spacer(),
+                      TextButton(
+                          onPressed: () {
+                            Get.to(() => const EditProfile());
+                          },
+                          child: const ReuseText(
+                            text: 'Edit profile',
+                            color: Color(0xff757575),
+                            size: 9,
+                          ))
+                    ],
                   ),
                   SizedBox(
                     height: 7.h,
