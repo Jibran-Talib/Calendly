@@ -6,4 +6,5 @@ class ApiUrls {
   static String userListUrl = '$baseUrl/users/list';
   static String userDeleteUrl = '$baseUrl/users/delete';
   static String userUpdateUrl = '$baseUrl/users/update/';
+  static String userBooking = '$baseUrl/bookings';
 }

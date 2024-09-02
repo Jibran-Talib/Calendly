@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:calendly_clone/utils/get_shareprefess_data.dart';
 import 'package:calendly_clone/utils/tab_bar_index.dart';
 import 'package:calendly_clone/view/create_event_screen.dart';
 import 'package:calendly_clone/view/one_off_meeting.dart';
@@ -10,7 +8,6 @@ import 'package:calendly_clone/widgets/reuseable_listtile2.dart';
 import 'package:calendly_clone/widgets/reuseable_text.dart';
 import 'package:calendly_clone/widgets/reuseable_textformField.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
