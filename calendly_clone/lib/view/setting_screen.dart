@@ -8,10 +8,24 @@ import 'package:calendly_clone/widgets/reuseable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class SettingScreen extends StatelessWidget {
+class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
 
+  @override
+  State<SettingScreen> createState() => _SettingScreenState();
+}
+
+class _SettingScreenState extends State<SettingScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadDataFromSharePrefess();
+  }
+
+  String name = 'Loading...';
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -80,8 +94,8 @@ class SettingScreen extends StatelessWidget {
                   SizedBox(
                     height: 7.h,
                   ),
-                  const ReuseText(
-                    text: 'Jibran Talib',
+                  ReuseText(
+                    text: name,
                     size: 16,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -178,5 +192,13 @@ class SettingScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _loadDataFromSharePrefess() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      name = "${prefs.getString('firstname')} ${prefs.getString('lastname')}" ??
+          "No Data";
+    });
   }
 }

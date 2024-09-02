@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:calendly_clone/utils/get_shareprefess_data.dart';
 import 'package:calendly_clone/utils/tab_bar_index.dart';
 import 'package:calendly_clone/view/create_event_screen.dart';
 import 'package:calendly_clone/view/one_off_meeting.dart';
@@ -10,9 +13,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({
+    super.key,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -20,6 +26,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _seletedIndex = 0;
+  String name = "Loading...";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadDataFromSharePrefess();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -43,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
               )),
           title: SizedBox(
             height: 37.h,
-            child: ReuseTextFormField(
+            child: const ReuseTextFormField(
               prefixIcon: Icon(
                 Icons.search,
                 color: Color(0xff757575),
@@ -62,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: CircleAvatar(
                 radius: 13.r,
                 backgroundColor: const Color(0xffd9d9d9),
-                child: const Text("J"),
+                child: Text(name[0]),
               ),
             ),
             SizedBox(
@@ -346,5 +361,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _loadDataFromSharePrefess() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      name = "${prefs.getString('firstname')} ${prefs.getString('lastname')}" ??
+          "No Data";
+    });
   }
 }

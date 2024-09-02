@@ -4,4 +4,6 @@ class ApiUrls {
   static String loginAccountUrl = '$baseUrl/users/login';
   static String newTokenGeneraterUrl = '$baseUrl/users/list';
   static String userListUrl = '$baseUrl/users/list';
+  static String userDeleteUrl = '$baseUrl/users/delete';
+  static String userUpdateUrl = '$baseUrl/users/update/';
 }

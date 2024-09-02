@@ -140,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             await prefes.setString('inputPassward',
                                 emailTextEditingController.text);
                             if (_formkey.currentState!.validate()) {
-                              GenerateAutoToken().getNewTokenFunc();
+                              GenerateAutoToken().getNewTokenFunc(true);
                             }
                             setState(() {
                               Loading = false;
@@ -281,7 +281,7 @@ class _LoginScreenState extends State<LoginScreen> {
       await prefes.setString('oldToken', data['accessToken'].toString());
       prefes.setString('email', emailTextEditingController.text);
       prefes.setString('passward', passwardTextEditingController.text);
-      GenerateAutoToken().getNewTokenFunc();
+      GenerateAutoToken().getNewTokenFunc(true);
     } else {
       print('Error and response statecode : ${response.statusCode}');
     }

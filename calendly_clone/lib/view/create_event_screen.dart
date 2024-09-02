@@ -47,7 +47,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                     ),
                     IconButton(
                         onPressed: () {
-                          Get.to(() => const HomeScreen());
+                          Get.to(() => HomeScreen());
                         },
                         icon: const Icon(
                             color: Color(0xff757575), Icons.arrow_back_ios)),
