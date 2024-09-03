@@ -7,7 +7,9 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Apifunctions {
-  Future getApifunc(String apiUrl, var body) async {
+  Future getApifunc(
+    String apiUrl,
+  ) async {
     try {
       print('Get Api running');
       await GenerateAutoToken().getNewTokenFunc(false);
@@ -18,9 +20,7 @@ class Apifunctions {
       print('Token: $_token');
       print('Userid: $userid');
 
-      body = jsonEncode(body);
-
-      var response = await http.put(Uri.parse(apiUrl), body: body, headers: {
+      var response = await http.get(Uri.parse(apiUrl), headers: {
         'Authorization': 'Bearer $_token',
         'Content-Type': 'application/json',
       });
@@ -28,12 +28,13 @@ class Apifunctions {
         ReuseSnakbar().snakbar(response.body);
         var data = jsonDecode(response.body);
         print('Sucessfully Updated');
+        return data;
       } else {
         print(' Response code ${response.statusCode}');
         print(' Response ${response.body}');
       }
     } catch (e) {
-      print('userUpdate func Error $e');
+      print('catch Error $e');
     }
   }
 

@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:calendly_clone/utils/api%20services/api_functions.dart';
+import 'package:calendly_clone/utils/api%20services/api_urls.dart';
 import 'package:calendly_clone/utils/tab_bar_index.dart';
 import 'package:calendly_clone/view/create_event_screen.dart';
 import 'package:calendly_clone/view/one_off_meeting.dart';
@@ -8,6 +10,7 @@ import 'package:calendly_clone/widgets/reuseable_listtile2.dart';
 import 'package:calendly_clone/widgets/reuseable_text.dart';
 import 'package:calendly_clone/widgets/reuseable_textformField.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -196,162 +199,174 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 15,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 7),
-                      child: InkWell(
-                        onTap: () {
-                          Get.bottomSheet(Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(20.r),
-                                  topRight: Radius.circular(20.r),
-                                )),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 19.w, vertical: 8.h),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Center(
-                                    child: Container(
-                                      width: 54.w,
-                                      height: 11.h,
-                                      decoration: BoxDecoration(
-                                          color: const Color(0xffd9d9d9),
-                                          borderRadius:
-                                              BorderRadius.circular(10.r)),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 12.62.h,
-                                  ),
-                                  const ReuseText(
-                                    text: 'Jibran',
-                                    size: 13,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  SizedBox(height: 6.7.h),
-                                  const ReuseText(
-                                    text: 'One-on-one, 30 mins, Zoom',
-                                    size: 13,
-                                    color: Color(0xff757575),
-                                  ),
-                                  SizedBox(height: 21.h),
-                                  CircleAvatar(
-                                    backgroundColor: const Color(0xffD9D9D9),
-                                    radius: 12.h,
-                                    child: const ReuseText(
-                                      text: 'JT',
-                                      color: Color(0xff757575),
-                                      size: 11,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 15.h,
-                                  ),
-                                  const ReuseListTile(
-                                      text: 'Copy link',
-                                      iconpath: 'assets/images/copyicon.png'),
-                                  const ReuseListTile(
-                                      text: 'Copy single-use link',
-                                      iconpath: 'assets/images/linkicon.png'),
-                                  const ReuseListTile(
-                                      text: 'View event type details',
-                                      iconpath: 'assets/images/eyeicon.png'),
-                                  const ReuseListTile(
-                                      text: 'View event type details',
-                                      iconpath:
-                                          'assets/images/settingsicon.png'),
-                                  const ReuseListTile(
-                                      text: 'More share options',
-                                      iconpath: 'assets/images/share2icon.png'),
-                                ],
-                              ),
-                            ),
-                          ));
-                        },
-                        child: Card(
-                          shadowColor: Colors.grey,
-                          elevation: 1,
-                          surfaceTintColor: Colors.white,
-                          color: Colors.white,
-                          child: Container(
-                            width: 331.w,
-                            height: 59.h,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.r),
-                                border:
-                                    Border.all(color: const Color(0xffd9d9d9))),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  width: 11.w,
-                                  height: 59.h,
-                                  // color: Color(0xff990193),
-                                  decoration: BoxDecoration(
-                                      color: const Color(0xff990193),
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(10.r),
-                                          bottomLeft: Radius.circular(10.r))),
-                                ),
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 10.w,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        // SizedBox(
-                                        //   height: 12.h,
-                                        // ),
-                                        const ReuseText(
-                                          text: '30 Minute Meeting',
-                                          color: Colors.black,
+              FutureBuilder(
+                future: Apifunctions().getApifunc(ApiUrls.userBooking),
+                builder: (context, snapshot) {
+                  return Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: 15,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 7),
+                          child: InkWell(
+                            onTap: () {
+                              Get.bottomSheet(Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20.r),
+                                      topRight: Radius.circular(20.r),
+                                    )),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 19.w, vertical: 8.h),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Center(
+                                        child: Container(
+                                          width: 54.w,
+                                          height: 11.h,
+                                          decoration: BoxDecoration(
+                                              color: const Color(0xffd9d9d9),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.r)),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 12.62.h,
+                                      ),
+                                      const ReuseText(
+                                        text: 'Jibran',
+                                        size: 13,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      SizedBox(height: 6.7.h),
+                                      const ReuseText(
+                                        text: 'One-on-one, 30 mins, Zoom',
+                                        size: 13,
+                                        color: Color(0xff757575),
+                                      ),
+                                      SizedBox(height: 21.h),
+                                      CircleAvatar(
+                                        backgroundColor:
+                                            const Color(0xffD9D9D9),
+                                        radius: 12.h,
+                                        child: const ReuseText(
+                                          text: 'JT',
+                                          color: Color(0xff757575),
                                           size: 11,
                                         ),
+                                      ),
+                                      SizedBox(
+                                        height: 15.h,
+                                      ),
+                                      const ReuseListTile(
+                                          text: 'Copy link',
+                                          iconpath:
+                                              'assets/images/copyicon.png'),
+                                      const ReuseListTile(
+                                          text: 'Copy single-use link',
+                                          iconpath:
+                                              'assets/images/linkicon.png'),
+                                      const ReuseListTile(
+                                          text: 'View event type details',
+                                          iconpath:
+                                              'assets/images/eyeicon.png'),
+                                      const ReuseListTile(
+                                          text: 'View event type details',
+                                          iconpath:
+                                              'assets/images/settingsicon.png'),
+                                      const ReuseListTile(
+                                          text: 'More share options',
+                                          iconpath:
+                                              'assets/images/share2icon.png'),
+                                    ],
+                                  ),
+                                ),
+                              ));
+                            },
+                            child: Card(
+                              shadowColor: Colors.grey,
+                              elevation: 1,
+                              surfaceTintColor: Colors.white,
+                              color: Colors.white,
+                              child: Container(
+                                width: 331.w,
+                                height: 59.h,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.r),
+                                    border: Border.all(
+                                        color: const Color(0xffd9d9d9))),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 11.w,
+                                      height: 59.h,
+                                      // color: Color(0xff990193),
+                                      decoration: BoxDecoration(
+                                          color: const Color(0xff990193),
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(10.r),
+                                              bottomLeft:
+                                                  Radius.circular(10.r))),
+                                    ),
+                                    Row(
+                                      children: [
                                         SizedBox(
-                                          height: 3.h,
+                                          width: 10.w,
                                         ),
-                                        const ReuseText(
-                                          text: 'One-on-one, 30 mins',
-                                          color: Color(0xff757575),
-                                          size: 9,
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            // SizedBox(
+                                            //   height: 12.h,
+                                            // ),
+                                            const ReuseText(
+                                              text: '30 Minute Meeting',
+                                              color: Colors.black,
+                                              size: 11,
+                                            ),
+                                            SizedBox(
+                                              height: 3.h,
+                                            ),
+                                            const ReuseText(
+                                              text: 'One-on-one, 30 mins',
+                                              color: Color(0xff757575),
+                                              size: 9,
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          width: Get.width * 0.47,
+                                        ),
+                                        CircleAvatar(
+                                          radius: 12.r,
+                                          backgroundColor: Color(0xffD9D9D9),
+                                          child: const ReuseText(
+                                            text: 'JT',
+                                            color: Color(0xff757575),
+                                            size: 11,
+                                          ),
                                         ),
                                       ],
-                                    ),
-                                    SizedBox(
-                                      width: Get.width * 0.47,
-                                    ),
-                                    CircleAvatar(
-                                      radius: 12.r,
-                                      backgroundColor: Color(0xffD9D9D9),
-                                      child: const ReuseText(
-                                        text: 'JT',
-                                        color: Color(0xff757575),
-                                        size: 11,
-                                      ),
-                                    ),
+                                    )
                                   ],
-                                )
-                              ],
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
+                        );
+                      },
+                    ),
+                  );
+                },
               )
             ],
           ),
