@@ -25,9 +25,8 @@ class Apifunctions {
         'Content-Type': 'application/json',
       });
       if (response.statusCode == 200) {
-        ReuseSnakbar().snakbar(response.body);
         var data = jsonDecode(response.body);
-        print('Sucessfully Updated');
+        print('GetApi Data Sucessfully comming');
         return data;
       } else {
         print(' Response code ${response.statusCode}');

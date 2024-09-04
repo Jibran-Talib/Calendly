@@ -5,12 +5,14 @@ import 'package:calendly_clone/utils/tab_bar_index.dart';
 import 'package:calendly_clone/view/create_event_screen.dart';
 import 'package:calendly_clone/view/one_off_meeting.dart';
 import 'package:calendly_clone/view/setting_screen.dart';
+import 'package:calendly_clone/widgets/reuse_progress_indicater.dart';
+import 'package:calendly_clone/widgets/reuse_snakbar.dart';
 import 'package:calendly_clone/widgets/reuseable_listtile.dart';
 import 'package:calendly_clone/widgets/reuseable_listtile2.dart';
 import 'package:calendly_clone/widgets/reuseable_text.dart';
 import 'package:calendly_clone/widgets/reuseable_textformField.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,6 +29,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _seletedIndex = 0;
   String name = "Loading...";
+  String cardName = "Loading...";
 
   @override
   void initState() {
@@ -72,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [
             InkWell(
               onTap: () {
-                Get.to(const SettingScreen());
+                Get.to(() => const SettingScreen());
               },
               child: CircleAvatar(
                 radius: 13.r,
@@ -202,170 +205,222 @@ class _HomeScreenState extends State<HomeScreen> {
               FutureBuilder(
                 future: Apifunctions().getApifunc(ApiUrls.userBooking),
                 builder: (context, snapshot) {
-                  return Expanded(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: 15,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 7),
-                          child: InkWell(
-                            onTap: () {
-                              Get.bottomSheet(Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20.r),
-                                      topRight: Radius.circular(20.r),
-                                    )),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 19.w, vertical: 8.h),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Center(
-                                        child: Container(
-                                          width: 54.w,
-                                          height: 11.h,
-                                          decoration: BoxDecoration(
-                                              color: const Color(0xffd9d9d9),
-                                              borderRadius:
-                                                  BorderRadius.circular(10.r)),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 12.62.h,
-                                      ),
-                                      const ReuseText(
-                                        text: 'Jibran',
-                                        size: 13,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      SizedBox(height: 6.7.h),
-                                      const ReuseText(
-                                        text: 'One-on-one, 30 mins, Zoom',
-                                        size: 13,
-                                        color: Color(0xff757575),
-                                      ),
-                                      SizedBox(height: 21.h),
-                                      CircleAvatar(
-                                        backgroundColor:
-                                            const Color(0xffD9D9D9),
-                                        radius: 12.h,
-                                        child: const ReuseText(
-                                          text: 'JT',
-                                          color: Color(0xff757575),
-                                          size: 11,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 15.h,
-                                      ),
-                                      const ReuseListTile(
-                                          text: 'Copy link',
-                                          iconpath:
-                                              'assets/images/copyicon.png'),
-                                      const ReuseListTile(
-                                          text: 'Copy single-use link',
-                                          iconpath:
-                                              'assets/images/linkicon.png'),
-                                      const ReuseListTile(
-                                          text: 'View event type details',
-                                          iconpath:
-                                              'assets/images/eyeicon.png'),
-                                      const ReuseListTile(
-                                          text: 'View event type details',
-                                          iconpath:
-                                              'assets/images/settingsicon.png'),
-                                      const ReuseListTile(
-                                          text: 'More share options',
-                                          iconpath:
-                                              'assets/images/share2icon.png'),
-                                    ],
-                                  ),
-                                ),
-                              ));
-                            },
-                            child: Card(
-                              shadowColor: Colors.grey,
-                              elevation: 1,
-                              surfaceTintColor: Colors.white,
-                              color: Colors.white,
-                              child: Container(
-                                width: 331.w,
-                                height: 59.h,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.r),
-                                    border: Border.all(
-                                        color: const Color(0xffd9d9d9))),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      width: 11.w,
-                                      height: 59.h,
-                                      // color: Color(0xff990193),
-                                      decoration: BoxDecoration(
-                                          color: const Color(0xff990193),
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(10.r),
-                                              bottomLeft:
-                                                  Radius.circular(10.r))),
-                                    ),
-                                    Row(
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const ReuseProgressIndicater();
+                  } else if (snapshot.data!.isEmpty) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 200.h,
+                        ),
+                        const Center(
+                            child: ReuseText(
+                          text: 'No Data Available',
+                          color: Color(0xff757575),
+                        )),
+                      ],
+                    );
+                  } else {
+                    print('snapshot state : ${snapshot.connectionState}');
+                    print('snapshot data : ${snapshot.data}');
+                    List data = snapshot.data;
+
+                    print("data length ${data.length}");
+                    return Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: data.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 7),
+                            child: InkWell(
+                              onTap: () {
+                                Get.bottomSheet(Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(20.r),
+                                        topRight: Radius.circular(20.r),
+                                      )),
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 19.w, vertical: 8.h),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        SizedBox(
-                                          width: 10.w,
-                                        ),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            // SizedBox(
-                                            //   height: 12.h,
-                                            // ),
-                                            const ReuseText(
-                                              text: '30 Minute Meeting',
-                                              color: Colors.black,
-                                              size: 11,
-                                            ),
-                                            SizedBox(
-                                              height: 3.h,
-                                            ),
-                                            const ReuseText(
-                                              text: 'One-on-one, 30 mins',
-                                              color: Color(0xff757575),
-                                              size: 9,
-                                            ),
-                                          ],
+                                        Center(
+                                          child: Container(
+                                            width: 54.w,
+                                            height: 11.h,
+                                            decoration: BoxDecoration(
+                                                color: const Color(0xffd9d9d9),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        10.r)),
+                                          ),
                                         ),
                                         SizedBox(
-                                          width: Get.width * 0.47,
+                                          height: 12.62.h,
                                         ),
+                                        ReuseText(
+                                          text: snapshot.data[index]['title']
+                                              .toString(),
+                                          size: 13,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        SizedBox(height: 6.7.h),
+                                        const ReuseText(
+                                          text: 'One-on-one, 30 mins, Zoom',
+                                          size: 13,
+                                          color: Color(0xff757575),
+                                        ),
+                                        SizedBox(height: 21.h),
                                         CircleAvatar(
-                                          radius: 12.r,
-                                          backgroundColor: Color(0xffD9D9D9),
-                                          child: const ReuseText(
-                                            text: 'JT',
+                                          backgroundColor:
+                                              const Color(0xffD9D9D9),
+                                          radius: 12.h,
+                                          child: ReuseText(
+                                            text: cardName,
                                             color: Color(0xff757575),
                                             size: 11,
                                           ),
                                         ),
+                                        SizedBox(
+                                          height: 15.h,
+                                        ),
+                                        InkWell(
+                                          onTap: () async {
+                                            await Clipboard.setData(
+                                                ClipboardData(
+                                              text: snapshot.data[index]['link']
+                                                  .toString(),
+                                            ));
+                                            ReuseSnakbar()
+                                                .snakbar('link copied');
+                                          },
+                                          child: const ReuseListTile(
+                                              text: 'Copy link',
+                                              iconpath:
+                                                  'assets/images/copyicon.png'),
+                                        ),
+                                        const ReuseListTile(
+                                            text: 'Copy single-use link',
+                                            iconpath:
+                                                'assets/images/linkicon.png'),
+                                        const ReuseListTile(
+                                            text: 'View event type details',
+                                            iconpath:
+                                                'assets/images/eyeicon.png'),
+                                        const ReuseListTile(
+                                            text: 'View event type details',
+                                            iconpath:
+                                                'assets/images/settingsicon.png'),
+                                        const ReuseListTile(
+                                            text: 'More share options',
+                                            iconpath:
+                                                'assets/images/share2icon.png'),
                                       ],
-                                    )
-                                  ],
+                                    ),
+                                  ),
+                                ));
+                              },
+                              child: Card(
+                                shadowColor: Colors.grey,
+                                elevation: 1,
+                                surfaceTintColor: Colors.white,
+                                color: Colors.white,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.r),
+                                      border: Border.all(
+                                          color: const Color(0xffd9d9d9))),
+                                  child: SizedBox(
+                                    width: 331.w,
+                                    height: 59.h,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          width: 11.w,
+                                          height: 59.h,
+                                          // color: Color(0xff990193),
+                                          decoration: BoxDecoration(
+                                              color: const Color(0xff990193),
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft:
+                                                      Radius.circular(10.r),
+                                                  bottomLeft:
+                                                      Radius.circular(10.r))),
+                                        ),
+                                        SizedBox(
+                                          width: 320.w,
+                                          height: 59.h,
+                                          child: Row(
+                                            children: [
+                                              SizedBox(
+                                                width: 10.w,
+                                              ),
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  ReuseText(
+                                                    textAlign: TextAlign.start,
+                                                    text: snapshot.data[index]
+                                                            ['title']
+                                                        .toString(),
+                                                    color: Colors.black,
+                                                    size: 11,
+                                                  ),
+                                                  SizedBox(
+                                                    height: 3.h,
+                                                  ),
+                                                  ReuseText(
+                                                    text: snapshot.data[index]
+                                                            ['description']
+                                                        .toString(),
+                                                    color:
+                                                        const Color(0xff757575),
+                                                    size: 9,
+                                                  ),
+                                                ],
+                                              ),
+                                              const Spacer(),
+                                              CircleAvatar(
+                                                radius: 12.r,
+                                                backgroundColor:
+                                                    Color(0xffD9D9D9),
+                                                child: ReuseText(
+                                                  text: cardName,
+                                                  color: Color(0xff757575),
+                                                  size: 11,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 10.w,
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                  );
+                          );
+                        },
+                      ),
+                    );
+                  }
                 },
               )
             ],
@@ -380,6 +435,9 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       name = "${prefs.getString('firstname')} ${prefs.getString('lastname')}" ??
           "No Data";
+      cardName =
+          "${prefs.getString('firstname')![0].toUpperCase()}${prefs.getString('lastname')![0].toUpperCase()}" ??
+              "No Data";
     });
   }
 }
