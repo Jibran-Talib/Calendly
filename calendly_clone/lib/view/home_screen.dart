@@ -11,8 +11,10 @@ import 'package:calendly_clone/widgets/reuseable_listtile.dart';
 import 'package:calendly_clone/widgets/reuseable_listtile2.dart';
 import 'package:calendly_clone/widgets/reuseable_text.dart';
 import 'package:calendly_clone/widgets/reuseable_textformField.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,7 +29,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List Screens = [];
   int _seletedIndex = 0;
   String name = "Loading...";
   String cardName = "Loading...";
@@ -43,53 +44,82 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            appBar: AppBar(
-              toolbarHeight: 56.h,
-              automaticallyImplyLeading: false,
-              // elevation: 2,
+            appBar: _seletedIndex == 0
+                ? AppBar(
+                    toolbarHeight: 56.h,
+                    automaticallyImplyLeading: false,
+                    // elevation: 2,
 
-              backgroundColor: const Color(0xfff5f5f5),
-              // toolbarHeight: 56,
-              bottom: PreferredSize(
-                  preferredSize: const Size(double.infinity, 0),
-                  child: Material(
-                    elevation: 2,
-                    child: Container(
-                      width: double.infinity,
-                      height: 1,
-                      color: Colors.white,
+                    backgroundColor: const Color(0xfff5f5f5),
+                    // toolbarHeight: 56,
+                    bottom: PreferredSize(
+                        preferredSize: const Size(double.infinity, 0),
+                        child: Material(
+                          elevation: 2,
+                          child: Container(
+                            width: double.infinity,
+                            height: 1,
+                            color: Colors.white,
+                          ),
+                        )),
+                    title: SizedBox(
+                      height: 37.h,
+                      child: const ReuseTextFormField(
+                        prefixIcon: Icon(
+                          Icons.search,
+                          color: Color(0xff757575),
+                        ),
+                        hintText: 'Search event types...',
+                        borderRadius: 30,
+                        enabledBorderColor: Color(0xffd9d9d9),
+                        focusedBorderColor: Color(0xffd9d9d9),
+                      ),
                     ),
-                  )),
-              title: SizedBox(
-                height: 37.h,
-                child: const ReuseTextFormField(
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Color(0xff757575),
+                    actions: [
+                      InkWell(
+                        onTap: () {
+                          Get.to(() => const SettingScreen());
+                        },
+                        child: CircleAvatar(
+                          radius: 13.r,
+                          backgroundColor: const Color(0xffd9d9d9),
+                          child: Text(name[0]),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 12.w,
+                      )
+                    ],
+                  )
+                : AppBar(
+                    // elevation: 2,
+                    // shadowColor: Colors.white,
+                    backgroundColor: Colors.white,
+                    bottomOpacity: 1,
+                    automaticallyImplyLeading: false,
+                    bottom: PreferredSize(
+                        preferredSize: const Size(double.infinity, 1),
+                        child: Material(
+                          elevation: 2,
+                          child: Container(
+                            width: double.infinity,
+                            height: 1,
+                            color: Colors.white,
+                          ),
+                        )),
+                    title: ReuseText(
+                      text: _seletedIndex == 2
+                          ? 'Notifications'
+                          : 'Scheduled events',
+                      color: const Color(0xff757575),
+                      size: 20,
+                    ),
+                    centerTitle: true,
+                    iconTheme: const IconThemeData(color: Color(0xff0047ff)),
+                    // leading: Icon(Icons.arrow_back, color: ,),
                   ),
-                  hintText: 'Search event types...',
-                  borderRadius: 30,
-                  enabledBorderColor: Color(0xffd9d9d9),
-                  focusedBorderColor: Color(0xffd9d9d9),
-                ),
-              ),
-              actions: [
-                InkWell(
-                  onTap: () {
-                    Get.to(() => const SettingScreen());
-                  },
-                  child: CircleAvatar(
-                    radius: 13.r,
-                    backgroundColor: const Color(0xffd9d9d9),
-                    child: Text(name[0]),
-                  ),
-                ),
-                SizedBox(
-                  width: 12.w,
-                )
-              ],
-            ),
             bottomNavigationBar: BottomNavigationBar(
+                selectedItemColor: const Color(0xff0047ff),
                 backgroundColor: const Color(0xfff5f5f5),
                 onTap: (index) {
                   setState(() {
@@ -187,8 +217,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 size: 32.h,
               ),
             ),
-            body: homeScreenData()));
+            body: _seletedIndex == 0
+                ? homeScreenData()
+                : _seletedIndex == 1
+                    ? scheduledEvnets()
+                    : notifications()));
   }
+
+//Get Previous Sharedprefess data For get user name
 
   Future<void> _loadDataFromSharePrefess() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -199,6 +235,120 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+//Notification Screen widget
+  Widget notifications() {
+    return const Center(child: Text("Notification"));
+  }
+
+//Schedule Event Screen widget and calling Scheduled Api
+
+  Widget scheduledEvnets() {
+    return FutureBuilder(
+        future: Apifunctions().getApifunc(ApiUrls.userSchedules),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: ReuseProgressIndicater());
+          } else if (snapshot.data!.isEmpty) {
+            return const Center(
+                child: ReuseText(
+              text: 'No Schedule events',
+              color: Colors.black,
+            ));
+          } else {
+            List data = snapshot.data;
+            print("schdule data $data");
+            return ListView.builder(
+              itemCount: data.length,
+              itemBuilder: (context, index) {
+                var splitedDate =
+                    snapshot.data[index]['created_at'].toString().split('T');
+
+                print("splitedDate: $splitedDate");
+                return Padding(
+                  padding: EdgeInsets.symmetric(vertical: 4.w, horizontal: 10),
+                  child: Card(
+                    shadowColor: Colors.grey,
+                    elevation: 1,
+                    surfaceTintColor: Colors.white,
+                    color: Colors.white,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          border: Border.all(color: const Color(0xffd9d9d9))),
+                      child: SizedBox(
+                        width: 331.w,
+                        height: 59.h,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: 11.w,
+                              height: 59.h,
+                              // color: Color(0xff990193),
+                              decoration: BoxDecoration(
+                                  color: const Color(0xff990193),
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10.r),
+                                      bottomLeft: Radius.circular(10.r))),
+                            ),
+                            SizedBox(
+                              width: 320.w,
+                              height: 59.h,
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 10.w,
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      ReuseText(
+                                        textAlign: TextAlign.start,
+                                        text: snapshot.data[index]['fullname']
+                                            .toString(),
+                                        color: Colors.black,
+                                        size: 11,
+                                      ),
+                                      SizedBox(
+                                        height: 3.h,
+                                      ),
+                                      ReuseText(
+                                        text: snapshot.data[index]['email']
+                                            .toString(),
+                                        color: const Color(0xff757575),
+                                        size: 9,
+                                      ),
+                                    ],
+                                  ),
+                                  const Spacer(),
+                                  ReuseText(
+                                    textAlign: TextAlign.center,
+                                    text:
+                                        "${splitedDate[0].toString()}\n${splitedDate[1].substring(0, 5).toString()}",
+                                    color: const Color(0xff757575),
+                                    size: 10,
+                                  ),
+                                  SizedBox(
+                                    width: 10.w,
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            );
+          }
+        });
+  }
+
+//Booking Data Screen and calling Booking Api
   Widget homeScreenData() {
     return Padding(
       padding: EdgeInsets.only(top: 12.w, left: 10.h, right: 10.h),

@@ -50,7 +50,7 @@ class WelcomeScreen extends StatelessWidget {
               InkWell(
                 onTap: () {
                   controller.createLoading.value = true;
-                  Get.to(const LoginScreen());
+                  Get.to(const SignupScreen());
                 },
                 child: Obx(
                   () => ReuseButton(
@@ -72,7 +72,7 @@ class WelcomeScreen extends StatelessWidget {
               InkWell(
                 onTap: () {
                   controller.signupLoading.value = true;
-                  Get.to(const SignupScreen());
+                  Get.to(const LoginScreen());
                 },
                 child: Obx(
                   () => ReuseButton(

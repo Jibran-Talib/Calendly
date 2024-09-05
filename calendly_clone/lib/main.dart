@@ -1,6 +1,5 @@
-import 'package:calendly_clone/view/edit_profile.dart';
 import 'package:calendly_clone/view/home_screen.dart';
-import 'package:calendly_clone/view/sign_up_screen.dart';
+import 'package:calendly_clone/view/welcomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
