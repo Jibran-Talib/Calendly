@@ -256,12 +256,14 @@ class _HomeScreenState extends State<HomeScreen> {
             ));
           } else {
             List data = snapshot.data;
+            var reverseData = data.reversed.toList();
+
             print("schdule data $data");
             return ListView.builder(
               itemCount: data.length,
               itemBuilder: (context, index) {
                 var splitedDate =
-                    snapshot.data[index]['created_at'].toString().split('T');
+                    reverseData[index]['created_at'].toString().split('T');
 
                 print("splitedDate: $splitedDate");
                 return Padding(
@@ -286,7 +288,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 59.h,
                               // color: Color(0xff990193),
                               decoration: BoxDecoration(
-                                  color: const Color(0xff990193),
+                                  color: const Color(0xff0047ff),
                                   borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(10.r),
                                       bottomLeft: Radius.circular(10.r))),
@@ -306,7 +308,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     children: [
                                       ReuseText(
                                         textAlign: TextAlign.start,
-                                        text: snapshot.data[index]['fullname']
+                                        text: reverseData[index]['fullname']
                                             .toString(),
                                         color: Colors.black,
                                         size: 11,
@@ -315,7 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         height: 3.h,
                                       ),
                                       ReuseText(
-                                        text: snapshot.data[index]['email']
+                                        text: reverseData[index]['email']
                                             .toString(),
                                         color: const Color(0xff757575),
                                         size: 9,
@@ -391,13 +393,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 print('snapshot state : ${snapshot.connectionState}');
                 print('snapshot data : ${snapshot.data}');
                 List data = snapshot.data;
+                var reverseData = data.reversed.toList();
 
                 print("data length ${data.length}");
+
                 return Expanded(
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: data.length,
                     itemBuilder: (context, index) {
+                      // var duration = reverseData[index]['duration'] >= 60
+                      //     ? double.parse(reverseData[index]['duration'] / 60)
+                      //     : '';
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 7),
                         child: InkWell(
@@ -458,7 +465,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     InkWell(
                                       onTap: () async {
                                         await Clipboard.setData(ClipboardData(
-                                          text: snapshot.data[index]['link']
+                                          text: reverseData[index]['link']
                                               .toString(),
                                         ));
                                         ReuseSnakbar().snakbar('link copied');
@@ -530,7 +537,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             children: [
                                               ReuseText(
                                                 textAlign: TextAlign.start,
-                                                text: snapshot.data[index]
+                                                text: reverseData[index]
                                                         ['title']
                                                     .toString(),
                                                 color: Colors.black,
@@ -540,9 +547,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 height: 3.h,
                                               ),
                                               ReuseText(
-                                                text: snapshot.data[index]
-                                                        ['description']
-                                                    .toString(),
+                                                text: 'ok',
                                                 color: const Color(0xff757575),
                                                 size: 9,
                                               ),

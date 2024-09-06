@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:calendly_clone/utils/api%20services/api_urls.dart';
@@ -7,6 +8,33 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Apifunctions {
+  Future postApiFunc(String postApiUrl, body) async {
+    try {
+      print('Post Api running');
+      await GenerateAutoToken().getNewTokenFunc(false);
+      SharedPreferences prefes = await SharedPreferences.getInstance();
+      var userid = prefes.getString('id').toString();
+      String? _token = prefes.getString('token');
+      var respone = await http.post(Uri.parse(postApiUrl),
+          headers: {
+            'Authorization': 'Bearer $_token',
+            'Content-Type': 'application/json',
+          },
+          body: jsonEncode(body));
+      if (respone.statusCode == 200) {
+        var data = jsonDecode(respone.body);
+        print('GetApi Data Sucessfully comming');
+        return data;
+      } else {
+        print(' Response code ${respone.statusCode}');
+        print(' Response ${respone.body}');
+        ReuseSnakbar().snakbar(respone.body);
+      }
+    } catch (e) {
+      print("catch error: $e");
+    }
+  }
+
   Future getApifunc(
     String apiUrl,
   ) async {

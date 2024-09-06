@@ -1,4 +1,7 @@
 import 'package:calendly_clone/controller/get_controller.dart';
+import 'package:calendly_clone/utils/api%20services/api_functions.dart';
+import 'package:calendly_clone/utils/api%20services/api_urls.dart';
+import 'package:calendly_clone/utils/api%20services/generate_auto_token.dart';
 import 'package:calendly_clone/view/event_preview_screen.dart';
 import 'package:calendly_clone/view/home_screen.dart';
 import 'package:calendly_clone/widgets/reuseable_button.dart';
@@ -25,6 +28,8 @@ class CreateEventScreen extends StatefulWidget {
 }
 
 class _CreateEventScreenState extends State<CreateEventScreen> {
+  TextEditingController eventNameTextEditingController =
+      TextEditingController();
   @override
   Widget build(BuildContext context) {
     Controller controller = Get.put(Controller());
@@ -47,7 +52,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                     ),
                     IconButton(
                         onPressed: () {
-                          Get.to(() => HomeScreen());
+                          Get.to(() => const HomeScreen());
                         },
                         icon: const Icon(
                             color: Color(0xff757575), Icons.arrow_back_ios)),
@@ -56,7 +61,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                   ],
                 ),
                 SizedBox(
-                  height: 21.h,
+                  height: 5.h,
                 ),
                 Row(
                   children: [
@@ -65,14 +70,14 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                     ),
                     const ReuseText(
                       text: 'New Event Type',
-                      size: 24,
+                      size: 20,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: 25.h,
+                  height: 15.h,
                 ),
                 SizedBox(
                   // width: double.infinity,
@@ -148,6 +153,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                               SizedBox(
                                 height: 30.h,
                                 child: ReuseTextFormField(
+                                  textEditingController:
+                                      eventNameTextEditingController,
                                   hintText: 'Name your event',
                                   borderRadius: 5,
                                   enabledBorderColor: const Color(0xff757575),
@@ -491,14 +498,55 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                             ),
                             SizedBox(
                               width: 136.w,
-                              child: ReuseButton(
-                                  buttonheight: 28.h,
-                                  widget: const ReuseText(
-                                    text: 'Confirm',
-                                    size: 13,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  )),
+                              child: InkWell(
+                                onTap: () async {
+                                  print(
+                                      " int condition check${controller.dropDownButtonMintsHourValue.value.toString()}");
+                                  int duration = controller
+                                                  .dropDownButtonMintsValue
+                                                  .value ==
+                                              'Custum' &&
+                                          controller
+                                                  .dropDownButtonMintsHourValue
+                                                  .value ==
+                                              'hrs'
+                                      ? int.parse(controller.textEditingController.value.text.toString()) *
+                                          60
+                                      : controller.dropDownButtonMintsValue
+                                                      .value ==
+                                                  'Custum' &&
+                                              controller
+                                                      .dropDownButtonMintsHourValue
+                                                      .value ==
+                                                  'min'
+                                          ? int.parse(controller
+                                              .textEditingController.value.text
+                                              .toString())
+                                          : int.parse(controller.dropDownButtonMintsValue.value.substring(0, 2));
+                                  print("duration Time : $duration");
+
+                                  var body = {
+                                    'title':
+                                        eventNameTextEditingController.text,
+                                    'duration': duration,
+                                    'link': 'www.google.com',
+                                  };
+                                  Apifunctions()
+                                      .postApiFunc(ApiUrls.bookingCreate, body)
+                                      .then((value) {
+                                    eventNameTextEditingController.clear();
+                                    Get.to(() => const HomeScreen());
+                                  });
+                                },
+                                child: ReuseButton(
+                                    buttonheight: 28.h,
+                                    widget: const ReuseText(
+                                      text: 'Confirm',
+                                      size: 13,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                              ),
                             ),
                           ],
                         ),

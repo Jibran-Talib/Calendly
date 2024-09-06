@@ -8,4 +8,5 @@ class ApiUrls {
   static String userUpdateUrl = '$baseUrl/users/update/';
   static String userBooking = '$baseUrl/bookings';
   static String userSchedules = '$baseUrl/schedules';
+  static String bookingCreate = '$baseUrl/bookings/create';
 }

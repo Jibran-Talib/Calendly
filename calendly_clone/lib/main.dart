@@ -1,3 +1,4 @@
+import 'package:calendly_clone/view/create_event_screen.dart';
 import 'package:calendly_clone/view/home_screen.dart';
 import 'package:calendly_clone/view/welcomeScreen.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
           useMaterial3: true,
         ),
-        home: const HomeScreen(),
+        home: HomeScreen(),
       ),
     );
   }
