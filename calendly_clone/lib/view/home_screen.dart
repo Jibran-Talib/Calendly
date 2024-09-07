@@ -402,9 +402,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     shrinkWrap: true,
                     itemCount: data.length,
                     itemBuilder: (context, index) {
-                      // var duration = reverseData[index]['duration'] >= 60
-                      //     ? double.parse(reverseData[index]['duration'] / 60)
-                      //     : '';
+                      var duration = reverseData[index]['duration'] >= 60
+                          ? '${double.parse(reverseData[index]['duration'].toString()) / 60} hour'
+                          : '${reverseData[index]['duration']} mints';
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 7),
                         child: InkWell(
@@ -547,7 +547,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 height: 3.h,
                                               ),
                                               ReuseText(
-                                                text: 'ok',
+                                                text:
+                                                    "One-on-one meeting - Time: $duration",
                                                 color: const Color(0xff757575),
                                                 size: 9,
                                               ),
