@@ -247,7 +247,10 @@ class _HomeScreenState extends State<HomeScreen> {
         future: Apifunctions().getApifunc(ApiUrls.userSchedules),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: ReuseProgressIndicater());
+            return const Center(
+                child: ReuseProgressIndicater(
+              color: Color(0xff0047ff),
+            ));
           } else if (snapshot.data!.isEmpty) {
             return const Center(
                 child: ReuseText(
@@ -373,7 +376,11 @@ class _HomeScreenState extends State<HomeScreen> {
             future: Apifunctions().getApifunc(ApiUrls.userBooking),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const ReuseProgressIndicater();
+                return const Center(
+                  child: ReuseProgressIndicater(
+                    color: Color(0xff0047ff),
+                  ),
+                );
               } else if (snapshot.data!.isEmpty) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,

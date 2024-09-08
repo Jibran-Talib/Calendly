@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: ScreenUtil.defaultSize,
       child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xff0047ff)),

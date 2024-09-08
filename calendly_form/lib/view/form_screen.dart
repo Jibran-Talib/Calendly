@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:calendly_form/services/api_url.dart';
+import 'package:calendly_form/widgets/reuse_progress_indicater.dart';
 import 'package:calendly_form/widgets/reuse_snakbar.dart';
 import 'package:calendly_form/widgets/reuseable_button.dart';
 import 'package:calendly_form/widgets/reuseable_textformField.dart';
@@ -18,6 +19,7 @@ class FormScreen extends StatefulWidget {
 }
 
 class _FormScreenState extends State<FormScreen> {
+  bool loading = false;
   var picked = DateTime.now();
   var time = TimeOfDay.now();
   final _formkey = GlobalKey<FormState>();
@@ -155,6 +157,9 @@ class _FormScreenState extends State<FormScreen> {
                     ),
                     InkWell(
                       onTap: () async {
+                        setState(() {
+                          loading = true;
+                        });
                         var body = {
                           'fullname': fullNameEditingController.text,
                           'email': emailEditingController.text,
@@ -162,15 +167,24 @@ class _FormScreenState extends State<FormScreen> {
                         };
                         print('body : $body');
                         if (_formkey.currentState!.validate()) {
-                          await postApiFunc(body);
+                          await postApiFunc(body).then((value) {
+                            fullNameEditingController.clear;
+                            emailEditingController.clear;
+                            setState(() {
+                              loading = false;
+                            });
+                          });
                         }
                       },
-                      child: const ReuseButton(
-                          widget: Text(
-                        'Submit',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      )),
+                      child: ReuseButton(
+                          widget: loading
+                              ? const ReuseProgressIndicater()
+                              : const Text(
+                                  'Submit',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                )),
                     )
                   ],
                 ),
