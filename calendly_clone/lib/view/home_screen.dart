@@ -376,9 +376,11 @@ class _HomeScreenState extends State<HomeScreen> {
             future: Apifunctions().getApifunc(ApiUrls.userBooking),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: ReuseProgressIndicater(
-                    color: Color(0xff0047ff),
+                return const Expanded(
+                  child: Center(
+                    child: ReuseProgressIndicater(
+                      color: Color(0xff0047ff),
+                    ),
                   ),
                 );
               } else if (snapshot.data!.isEmpty) {
